@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CursoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,10 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('hola', function () {
-    return 'Holaaa bb';
-});
+Route::get('cursos', [CursoController::class, 'index']);
 
-Route::get('administra/{nEmpresa}/{especialidad}', function($nEmpresa,$laEspecialidad){
-    return 'Esta empresa se dara de alta: '.$nEmpresa. ' Su especialidad es: '.$laEspecialidad;
-});
+Route::get('cursos/create', [CursoController::class, 'create']);
+
+Route::get('cursos/{curso}', [CursoController::class, 'show']);
