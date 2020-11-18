@@ -78,21 +78,38 @@
                     @endauth
                 </div>
             @endif
+        </div>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Mi primera app
-                </div>
+        <div class="banner-img">
+           <img src="resource/images/ss2.png" width="35%" height="25%" alt="logoGobMX" vertical-align="center"/>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <div class=" container">
+            <div class="row">
+                <div class="col-lg-12">
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <div class="form">
+                        <h:form class="login-form">
+                             <div class="container">
+                                <div class="form-signin" role="form">
+                                    <h3 class="form-signin-heading">Ingrese los datos:</h3>
+                                    <input type="text" name = "user" id="usuario" class="form-control" placeholder="usuario" required autofocus>
+                                    <input type="password" id="pass" class="form-control" placeholder="contraseña" required>
+
+							     			<br>
+										    <br>
+							
+                                <button class="btn btn-danger" id="singin" type="button">ingresar</button>
+                              
+                       
+                            </div>
+                            <div class="container" id="resultado">
+    
+                            </div>                  
+                        </h:form>
+                    </div>
                 </div>
             </div>
         </div>
