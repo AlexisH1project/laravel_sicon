@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\LuluController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,3 +23,7 @@ Route::get('cursos', [CursoController::class, 'index']);
 Route::get('cursos/create', [CursoController::class, 'create']);
 
 Route::get('cursos/{curso}', [CursoController::class, 'show']);
+
+Route::get('lulu', [LuluController::class, 'lulu']);
+
+Route::get('roles/menuPrincipal/{usuario}', [LuluController::class, 'menuPrincipal'])-> name('roles.menuPrincipal');
