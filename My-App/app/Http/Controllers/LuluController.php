@@ -15,8 +15,9 @@ class LuluController extends Controller
 
     public function menuPrincipal($usuario){
 
-        $Usuario=DB::table('usuarios')->where('usuario', $usuario)->first();
+        $Usuario=DB::table('usuarios')->where('usuario',$usuario)->first();
         return view('roles.menuPrincipal', compact('Usuario'));
 
     }
+
 }

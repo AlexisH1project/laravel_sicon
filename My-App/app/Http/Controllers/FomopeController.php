@@ -10,6 +10,5 @@ class FomopeController extends Controller
         $Fomope = new Fomope();
 
         $Fomope -> color_estado = $request -> color_estado;
-        $Fomope ->
     }
 }

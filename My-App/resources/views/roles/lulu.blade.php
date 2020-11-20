@@ -33,8 +33,10 @@
 @section('content')
 <h1>Bienvenido a la pagina lulu</h1>
 @foreach ($Fomope as $Fomopes)
+<?php echo hola;
+if($Fomopes->color_estado==$usuario){ ?>
 <h3>{{$Fomopes->color_estado}}</h3>
-	
+<?php }	?>
 @endforeach
 
 @endsection
