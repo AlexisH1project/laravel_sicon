@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getUsuario(){
+        return $this->belongsTo('App\User');
+    }
+
+    public function rolEnviar(){
+        if($this->User->id_rol){
+
+        }
+    }
 }
