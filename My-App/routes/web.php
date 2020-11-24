@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CursoController;
-use App\Http\Controllers\LuluController;
+use App\Http\Controllers\DDSCHController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,8 +27,14 @@ Route::get('cursos', [CursoController::class, 'index']);
 Route::get('cursos/create', [CursoController::class, 'create']);
 
 Route::get('cursos/{curso}', [CursoController::class, 'show']);
-Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('lulu', [LuluController::class, 'lulu']);
-Route::get('roles/menuPrincipal/{usuario}', [LuluController::class, 'menuPrincipal'])-> name('roles.menuPrincipal');
+Route::get('DDSCH/lulu', [DDSCHController::class, 'lulu']);
+Route::get('DDSCH/actualizarFecha', [DDSCHController::class, 'actualizarFecha']);
+Route::get('DDSCH/consultaEstado', [DDSCHController::class, 'consultaEstado']);
+Route::get('DDSCH/filtroDescargar', [DDSCHController::class, 'filtroDescargar']);
+Route::get('DDSCH/generarReporte', [DDSCHController::class, 'generarReporte']);
+Route::get('DDSCH/guardarVista', [DDSCHController::class, 'guardarVista']);
+Route::get('DDSCH/guardarVistaEventuales', [DDSCHController::class, 'guardarVistaEventuales']);
+Route::get('DDSCH/qrtxt', [DDSCHController::class, 'qrtxt']);
+Route::get('/menuPrincipal/{usuario}', [DDSCHController::class, 'menuPrincipal'])-> name('roles.menuPrincipal');
 

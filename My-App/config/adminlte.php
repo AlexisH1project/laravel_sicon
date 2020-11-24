@@ -126,7 +126,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-light-danger elevation-4',
+    'classes_sidebar' => 'sidebar-light-orange elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-orange navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -243,23 +243,23 @@ return [
         ],
         [
             'text'        => 'Bandeja',
-            'url'         => '#',
+            'url'         => 'DDSCH/lulu',
             'icon'        => 'fas fa-file-signature',
         ],
         ['header' => ''],
         [
             'text' => 'Descarga de Documentos',
-            'url'  => '#',
+            'url'  => 'DDSCH/filtroDescargar',
             'icon' => 'fas fa-file-download',
         ],
         [
             'text' => 'Generar Reporte',
-            'url'  => '#',
+            'url'  => 'DDSCH/generarReporte',
             'icon' => 'fas fa-book',
         ],
         [
             'text' => 'Consulta',
-            'url'  => '#',
+            'url'  => 'DDSCH/consultaEstado',
             'icon' => 'fas fa-search',
         ],
         [
@@ -268,25 +268,25 @@ return [
             'submenu' => [
                 [
                     'text' => 'Planta',
-                    'url'  => '#',
+                    'url'  => 'DDSCH/guardarVista',
                     'icon'    => 'fas fa-arrow-circle-up',
                 ],
                
                 [
                     'text' => 'Eventuales',
-                    'url'  => '#',
+                    'url'  => 'DDSCH/guardarVistaEventuales',
                     'icon'    => 'fas fa-arrow-circle-up',
                 ],
             ],
         ],
         [
             'text' => 'Guardar txt QR',
-            'url'  => '#',
+            'url'  => 'DDSCH/qrtxt',
             'icon' => 'fas fa-qrcode',
         ],
         [
             'text' => 'Actualizar Fechas',
-            'url'  => '#',
+            'url'  => 'DDSCH/actualizarFecha',
             'icon' => 'fas fa-calendar-alt',
         ],
       
