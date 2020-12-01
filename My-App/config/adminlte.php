@@ -1,7 +1,6 @@
 <?php
-
+  
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Title
@@ -229,7 +228,6 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/#8-menu-configuration
     |
     */
-
     'menu' => [
         [
             'text' => 'Eventuales',

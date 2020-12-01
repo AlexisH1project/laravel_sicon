@@ -41,9 +41,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\User');
     }
 
-    public function rolEnviar(){
-        if($this->User->id_rol){
+    public function roles(){
+        return $this->belongsToMany('App\Role')->withTimesTamps();
+    }
 
-        }
+    public function getRol(){
+        return $this->belongsTo('App\Role');
     }
 }

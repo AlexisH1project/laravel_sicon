@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\DDSCHController;
+use App\Http\Controllers\LoginController;
+use App\User;
+use App\Role;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,13 +18,19 @@ use App\Http\Controllers\DDSCHController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Auth::routes();
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 
 Route::get('/', function () {
+    $user = Auth::user();
+    echo $user;
     return view('auth/login');
+});
+
+Route::get('/registrar', function(){
+    return view('auth/register');
 });
 
 Route::get('cursos', [CursoController::class, 'index']);
@@ -37,4 +48,23 @@ Route::get('DDSCH/guardarVista', [DDSCHController::class, 'guardarVista']);
 Route::get('DDSCH/guardarVistaEventuales', [DDSCHController::class, 'guardarVistaEventuales']);
 Route::get('DDSCH/qrtxt', [DDSCHController::class, 'qrtxt']);
 Route::get('/menuPrincipal/{usuario}', [DDSCHController::class, 'menuPrincipal'])-> name('roles.menuPrincipal');
+
+// Pruebas para roles:
+
+Route::get('/test', function(){
+    // return Role:: create([
+    //     'name' => 'Autorizador',
+    //     'slug' => 'Autorizador',
+    //     'description' => 'Autorizador',
+    //     'full-access' => 'Yes'
+    // ]);
+
+
+    // $user = User::find(1);
+    // $user->roles()->sync([1,2]);
+    // return $user->roles;
+    
+    $user = Auth::user();
+    return $user;
+});
 

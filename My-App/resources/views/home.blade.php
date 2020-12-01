@@ -1,4 +1,14 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+@section('title', 'Pagina Principal')
+
+@section('content_header')
+    <h1>Menú Principal: Usuario que inicio sesion- </h1> {{ Auth::user()->name }} 
+@stop
+@section('content')
+    <p>Bienvenido a la aplicación SICON.</p>
+@stop
+<!-- @extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -20,4 +30,4 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection -->
