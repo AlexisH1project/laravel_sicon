@@ -237,17 +237,35 @@ return [
             'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH' ], 
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
             'text'        => 'Bandeja',
-            'url'         => 'DDSCH/lulu',
+            'url'         => 'DDSCH/autorizaDDSCH',
             'icon'        => 'fas fa-file-signature',
             'can'  => 'AutorizaDDSCH',
         ],
-        ['header' => ''],
+        [
+            'text'        => 'Bandeja',
+            'url'         => 'DDSCH/capDDSCH',
+            'icon'        => 'fas fa-file-signature',
+            'can'  => 'CapDDSCH',
+        ],
+        [
+            'text'        => 'Bandeja',
+            'url'         => 'DSPO/autorizaDSPO',
+            'icon'        => 'fas fa-file-signature',
+            'can'  => 'AutorizaDSPO',
+        ],
+        [
+            'text'        => 'Bandeja',
+            'url'         => 'DSPO/capDSPO',
+            'icon'        => 'fas fa-file-signature',
+            'can'  => 'CapDSPO',
+        ],
+        [
+            'text'        => 'Bandeja',
+            'url'         => 'DIPSP/autorizaDIPSP',
+            'icon'        => 'fas fa-file-signature',
+            'can'  => 'AutorizaDIPSP',
+        ],
         [
             'text' => 'Descarga de Documentos',
             'url'  => 'General/filtroDescargar',
@@ -261,10 +279,16 @@ return [
             'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH','AutorizaDSPO','AutorizaDIPSP' ], 
         ],
         [
+            'text' => 'Reporte Profesional',
+            'url'  => 'DSPO/generarReportePC',
+            'icon' => 'fas fa-book',
+            'can'  => [ 'CapDSPO'],
+        ],
+        [
             'text' => 'Consulta',
             'url'  => 'General/consultaEstado',
             'icon' => 'fas fa-search',
-            'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH','AutorizaDSPO','CapDSPO','AutorizaDIPSP' ], 
+            'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH','AutorizaDSPO','CapDSPO','AutorizaDIPSP','ConsultaDGHO' ], 
         ],
         [
             'text'    => 'Guardar',
@@ -290,7 +314,7 @@ return [
             'text' => 'Guardar Documentos',
             'url'  => 'General/guardarVista',
             'icon'    => 'fas fa-file-upload',
-            'can'  => [ 'AutorizaDSPO'], 
+            'can'  => [ 'AutorizaDSPO', 'CapDSPO'], 
         ],
         [
             'text' => 'Guardar txt QR',
@@ -304,6 +328,13 @@ return [
             'icon' => 'fas fa-calendar-alt',
             'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH'], 
         ],
+        [
+            'text' => 'Correos',
+            'url'  => 'DSPO/correosUR',
+            'icon' => 'fas fa-at',
+            'can'  => [ 'AutorizaDSPO'], 
+        ],
+        
       
     ],
 

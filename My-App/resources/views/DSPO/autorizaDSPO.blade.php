@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Consultar Estado')
+@section('title', 'Bandeja')
 
 @section('content_header')
 <div class="header">
@@ -12,9 +12,9 @@
 @stop
 
 @section('content')
-  hola
 @stop
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/content_header.css') }}">
 @stop
+

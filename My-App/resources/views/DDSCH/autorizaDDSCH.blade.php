@@ -12,10 +12,6 @@
 @stop
 
 @section('content')
-@foreach ($Fomope as $Fomopes)
-
-<h3>{{$Fomopes->color_estado}}</h3>
-@endforeach
 @stop
 
 @section('css')

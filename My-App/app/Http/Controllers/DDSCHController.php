@@ -7,10 +7,16 @@ use Illuminate\Support\Facades\DB;
 
 class DDSCHController extends Controller
 {
-    public function lulu(){
+    public function autorizaDDSCH(){
 
         //$Fomope = DB::table('fomope')->get();
-        return view('DDSCH.lulu');
+        return view('DDSCH.autorizaDDSCH');
+    }
+
+    public function capDDSCH(){
+
+        //$Fomope = DB::table('fomope')->get();
+        return view('DDSCH.capDDSCH');
     }
 
     public function actualizarFecha(){

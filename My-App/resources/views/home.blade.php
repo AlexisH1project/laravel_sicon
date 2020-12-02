@@ -3,31 +3,18 @@
 @section('title', 'Pagina Principal')
 
 @section('content_header')
-    <h1>Menú Principal: Usuario que inicio sesion- </h1> {{ Auth::user()->name }} 
-@stop
-@section('content')
-    <p>Bienvenido a la aplicación SICON.</p>
-@stop
-<!-- @extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="header">
+    <center>
+    <h3>Sistema de Control de Registro de Formato de Movimiento de Personal</h3>
+ <h5>Departamento Dirección General de Recursos Humanos y Organización/Dirección integral de puestos y servicios personales</h5>
+    </center>
 </div>
-@endsection -->
+@stop
+@section('content')
+<h1>Menú Principal: Usuario que inicio sesion- </h1> {{ Auth::user()->name }} 
+@stop
+
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/content_header.css') }}">
+@stop

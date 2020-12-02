@@ -79,6 +79,28 @@ class AuthServiceProvider extends ServiceProvider
     
 
         });
+
+        Gate::define('ConsultaDGHO', function ($user){
+
+            if($user->id_rol==5){
+                return true;
+            }else{
+                return false;
+            }
+    
+
+        });
+
+        Gate::define('Plazas', function ($user){
+
+            if($user->id_rol==6){
+                return true;
+            }else{
+                return false;
+            }
+    
+
+        });
     
     }
 }
