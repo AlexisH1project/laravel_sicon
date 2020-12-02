@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function getRol(){
         return $this->belongsTo('App\Role');
     }
+
+    public function adminlte_image(){
+        return 'https://picsum.photos/300/300';
+    }
 }

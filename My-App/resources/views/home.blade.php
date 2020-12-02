@@ -11,7 +11,9 @@
 </div>
 @stop
 @section('content')
-<h1>Menú Principal: Usuario que inicio sesion- </h1> {{ Auth::user()->name }} 
+<div class='background_content'>
+    <h1>Menú Principal: Usuario que inicio sesion- </h1> {{ Auth::user()->name }} 
+</div>
 @stop
 
 

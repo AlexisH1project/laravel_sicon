@@ -13,8 +13,12 @@
 @stop
 
 @section('content')
+<div class='background_content'>
+    
+</div>
 @stop
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/content_header.css') }}">
+<link rel="stylesheet" href="{{ asset('css/background.css') }}">
 @stop
