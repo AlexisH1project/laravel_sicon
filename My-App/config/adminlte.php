@@ -228,11 +228,13 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/#8-menu-configuration
     |
     */
+   
     'menu' => [
         [
             'text' => 'Eventuales',
             'url'  => '#',
             'topnav'  => true,
+            'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH' ], 
         ],
         [
             'text' => 'blog',
@@ -243,49 +245,64 @@ return [
             'text'        => 'Bandeja',
             'url'         => 'DDSCH/lulu',
             'icon'        => 'fas fa-file-signature',
+            'can'  => 'AutorizaDDSCH',
         ],
         ['header' => ''],
         [
             'text' => 'Descarga de Documentos',
-            'url'  => 'DDSCH/filtroDescargar',
+            'url'  => 'General/filtroDescargar',
             'icon' => 'fas fa-file-download',
+            'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH','AutorizaDIPSP' ], 
         ],
         [
             'text' => 'Generar Reporte',
-            'url'  => 'DDSCH/generarReporte',
+            'url'  => 'General/generarReporte',
             'icon' => 'fas fa-book',
+            'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH','AutorizaDSPO','AutorizaDIPSP' ], 
         ],
         [
             'text' => 'Consulta',
-            'url'  => 'DDSCH/consultaEstado',
+            'url'  => 'General/consultaEstado',
             'icon' => 'fas fa-search',
+            'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH','AutorizaDSPO','CapDSPO','AutorizaDIPSP' ], 
         ],
         [
-            'text'    => 'Guardar Documentos',
+            'text'    => 'Guardar',
             'icon'    => 'fas fa-file-upload',
+            'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH' ], 
             'submenu' => [
                 [
-                    'text' => 'Planta',
-                    'url'  => 'DDSCH/guardarVista',
+                    'text' => 'Guardar Documentos',
+                    'url'  => 'General/guardarVista',
                     'icon'    => 'fas fa-arrow-circle-up',
+                    'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH'], 
                 ],
                
                 [
-                    'text' => 'Eventuales',
+                    'text' => 'Guardar Documentos Eventuales',
                     'url'  => 'DDSCH/guardarVistaEventuales',
                     'icon'    => 'fas fa-arrow-circle-up',
+                    'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH'], 
                 ],
             ],
+        ],
+        [
+            'text' => 'Guardar Documentos',
+            'url'  => 'General/guardarVista',
+            'icon'    => 'fas fa-file-upload',
+            'can'  => [ 'AutorizaDSPO'], 
         ],
         [
             'text' => 'Guardar txt QR',
             'url'  => 'DDSCH/qrtxt',
             'icon' => 'fas fa-qrcode',
+            'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH'], 
         ],
         [
             'text' => 'Actualizar Fechas',
             'url'  => 'DDSCH/actualizarFecha',
             'icon' => 'fas fa-calendar-alt',
+            'can'  => [ 'AutorizaDDSCH' , 'CapDDSCH'], 
         ],
       
     ],
