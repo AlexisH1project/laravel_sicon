@@ -1,8 +1,61 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import '~bootstrap/scss/functions';
+@import '_variables.scss';
 
-// Variables
-@import 'variables';
 
-// Bootstrap
+// Color Overwrite START
+$primary: #A41E2C;
+$secondary: #A41E2C;
+$danger: #A41E2C;
+$success: #A41E2C;
+$warning: #A41E2C;
+$wine: #921928;
+// Color Overwrite END
+
+// Custom Theme Color START
+
+// Custom Theme Color END
+
+// Variables and Mixins
+// ---------------------------------------------------
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic');
+@import '~@fortawesome/fontawesome-free/css/all.css';
+// OverlayScrollbars
+@import '~overlayscrollbars/css/OverlayScrollbars.css';
+// iCheck
+@import '~icheck-bootstrap/icheck-bootstrap.css';
+@import  '../../public/vendor/adminlte/dist/css/adminlte.css' ;
+@import  '../../public/vendor/adminlte/dist/css/adminlte.min.css' ;
 @import '~bootstrap/scss/bootstrap';
+
+
+
+//Font Awesome 
+  @import  '../../vendor/almasaeed2010/adminlte/plugins/fontawesome-free/css/all.min.css' ;
+  //Ionicons -->
+  @import  '../../vendor/almasaeed2010/adminlte/plugins/fontawesome-free/css/all.min.css' ;
+  @import url('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+  
+  // Tempusdominus Bbootstrap 4 -->
+  @import  '../../vendor/almasaeed2010/adminlte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' ;
+  // iCheck -->
+  @import  '../../vendor/almasaeed2010/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css' ;
+  //JQVMap -->
+  @import  '../../vendor/almasaeed2010/adminlte/plugins/jqvmap/jqvmap.min.css' ;
+  //Theme style -->
+  @import  '../../vendor/almasaeed2010/adminlte/dist/css/adminlte.min.css' ;
+  //overlayScrollbars -->
+  @import  '../../vendor/almasaeed2010/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' ;
+  // Daterange picker -->
+  @import  '../../vendor/almasaeed2010/adminlte/plugins/daterangepicker/daterangepicker.css' ;
+  //summernote -->
+  @import  '../../vendor/almasaeed2010/adminlte/plugins/summernote/summernote-bs4.css' ;
+  /*Google Font: Source Sans Pro*/
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700');
+  //<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+$primary: #A41E2C;
+$secondary: #A41E2C;
+$danger: #A41E2C;
+$success: #A41E2C;
+$warning: #A41E2C;
+$wine: #921928;

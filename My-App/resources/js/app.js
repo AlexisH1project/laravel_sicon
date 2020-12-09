@@ -6,6 +6,25 @@
 
 require('./bootstrap');
 
+require('../../vendor/almasaeed2010/adminlte/plugins/jquery/jquery.min.js');
+require('../../vendor/almasaeed2010/adminlte/plugins/jquery-ui/jquery-ui.min.js');
+require('../../vendor/almasaeed2010/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js');
+require('../../vendor/almasaeed2010/adminlte/plugins/sparklines/sparkline.js');
+require('../../vendor/almasaeed2010/adminlte/plugins/jqvmap/jquery.vmap.min.js');
+require('../../vendor/almasaeed2010/adminlte/plugins/jqvmap/maps/jquery.vmap.usa.js');
+require('../../vendor/almasaeed2010/adminlte/plugins/jquery-knob/jquery.knob.min.js');
+require('../../vendor/almasaeed2010/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js');
+require('../../vendor/almasaeed2010/adminlte/plugins/summernote/summernote-bs4.min.js');
+require('../../vendor/almasaeed2010/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js');
+require('../../vendor/almasaeed2010/adminlte/dist/js/adminlte.js');
+require('../../vendor/almasaeed2010/adminlte/dist/js/pages/dashboard.js');
+require('../../vendor/almasaeed2010/adminlte/dist/js/demo.js');
+
+
+
+  $.widget.bridge('uibutton', $.ui.button)
+
+
 window.Vue = require('vue');
 
 /**
