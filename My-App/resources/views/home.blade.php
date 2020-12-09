@@ -1,22 +1,5 @@
-@extends('adminlte::page')
+@extends('layouts.adminlte')
 
-@section('title', 'Pagina Principal')
-
-@section('content_header')
-<div class="header">
-    <center>
-    <h3>Sistema de Control de Registro de Formato de Movimiento de Personal</h3>
- <h5>Departamento Dirección General de Recursos Humanos y Organización/Dirección integral de puestos y servicios personales</h5>
-    </center>
-</div>
-@stop
 @section('content')
-<div class='background_content'>
-    <h1>Menú Principal: Usuario que inicio sesion- </h1> {{ Auth::user()->name }} 
-</div>
-@stop
-
-
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/content_header.css') }}">
-@stop
+    <center><h1 class="display-1">Bienvenido {{Auth::user()->name}}</h1></center>
+@endsection

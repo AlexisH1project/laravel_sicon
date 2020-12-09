@@ -35,21 +35,24 @@ Route::get('/registrar', function(){
     return view('auth/register');
 });
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('DDSCH/autorizaDDSCH', [DDSCHController::class, 'autorizaDDSCH']);
-Route::get('DDSCH/actualizarFecha', [DDSCHController::class, 'actualizarFecha']);
-Route::get('General/consultaEstado', [GeneralController::class, 'consultaEstado']);
-Route::get('General/filtroDescargar', [GeneralController::class, 'filtroDescargar']);
-Route::get('General/generarReporte', [GeneralController::class, 'generarReporte']);
-Route::get('General/guardarVista', [GeneralController::class, 'guardarVista']);
-Route::get('DDSCH/guardarVistaEventuales', [DDSCHController::class, 'guardarVistaEventuales']);
-Route::get('DDSCH/qrtxt', [DDSCHController::class, 'qrtxt']);
-Route::get('/menuPrincipal/{usuario}', [DDSCHController::class, 'menuPrincipal'])-> name('roles.menuPrincipal');
-Route::get('DDSCH/capDDSCH', [DDSCHController::class, 'capDDSCH']);
-Route::get('DSPO/autorizaDSPO', [DSPOController::class, 'autorizaDSPO']);
-Route::get('DSPO/capDSPO', [DSPOController::class, 'capDSPO']);
-Route::get('DSPO/correosUR', [DSPOController::class, 'correosUR']);
-Route::get('DSPO/generarReportePC', [DSPOController::class, 'generarReportePC']);
-Route::get('DIPSP/autorizaDIPSP', [DIPSPController::class, 'autorizaDIPSP']);
+
+Route::get('DDSCH/autorizaDDSCH', [DDSCHController::class, 'autorizaDDSCH'])-> name('DDSCH.autorizaDDSCH');
+Route::get('DDSCH/actualizarFecha', [DDSCHController::class, 'actualizarFecha'])-> name('DDSCH.actualizarFecha');
+Route::get('DDSCH/qrtxt', [DDSCHController::class, 'qrtxt'])-> name('DDSCH.qrtxt');
+Route::get('DDSCH/capDDSCH', [DDSCHController::class, 'capDDSCH'])-> name('DDSCH.capDDSCH');
+Route::get('DDSCH/guardarVistaEventuales', [DDSCHController::class, 'guardarVistaEventuales'])-> name('DDSCH.guardarVistaEventuales');
+
+Route::get('General/consultaEstado', [GeneralController::class, 'consultaEstado'])-> name('General.consultaEstado');
+Route::get('General/filtroDescargar', [GeneralController::class, 'filtroDescargar'])-> name('General.filtroDescargar');
+Route::get('General/generarReporte', [GeneralController::class, 'generarReporte'])-> name('General.generarReporte');
+Route::get('General/guardarVista', [GeneralController::class, 'guardarVista'])-> name('General.guardarVista');
+
+Route::get('DSPO/autorizaDSPO', [DSPOController::class, 'autorizaDSPO'])-> name('DSPO.autorizaDSPO');
+Route::get('DSPO/capDSPO', [DSPOController::class, 'capDSPO'])-> name('DSPO.capDSPO');
+Route::get('DSPO/correosUR', [DSPOController::class, 'correosUR'])-> name('DSPO.correosUR');
+Route::get('DSPO/generarReportePC', [DSPOController::class, 'generarReportePC'])-> name('DSPO.generarReportePC');
+
+Route::get('DIPSP/autorizaDIPSP', [DIPSPController::class, 'autorizaDIPSP'])-> name('DIPSP.autorizaDIPSP');
 
 // Pruebas para roles:
 
