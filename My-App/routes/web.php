@@ -46,6 +46,8 @@ Route::get('General/consultaEstado', [GeneralController::class, 'consultaEstado'
 Route::get('General/filtroDescargar', [GeneralController::class, 'filtroDescargar'])-> name('General.filtroDescargar');
 Route::get('General/generarReporte', [GeneralController::class, 'generarReporte'])-> name('General.generarReporte');
 Route::get('General/guardarVista', [GeneralController::class, 'guardarVista'])-> name('General.guardarVista');
+Route::get('Serch/guardarVista', 'GeneralController@resultados_curp')->name('serch.guadarDoc');
+
 
 Route::get('DSPO/autorizaDSPO', [DSPOController::class, 'autorizaDSPO'])-> name('DSPO.autorizaDSPO');
 Route::get('DSPO/capDSPO', [DSPOController::class, 'capDSPO'])-> name('DSPO.capDSPO');

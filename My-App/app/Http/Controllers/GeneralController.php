@@ -31,6 +31,18 @@ class GeneralController extends Controller
         return view('General.guardarVista');
     }
 
+    public function resultados_curp(Request $request){
+        $term = $request->get('term');
+        $resultado = DB::table('ct_empleados')->select('*')->where('curp', 'LIKE', '%'.$term.'%')->get();
+        $data = [];
+        foreach ($resultado as $registro) {
+            # code...
+            $data[] = [
+                'curp' => $registro->curp
+            ];
+        }
+        return $data;
+    }
 
-
+  
 }

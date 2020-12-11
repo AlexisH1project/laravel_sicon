@@ -1,30 +1,52 @@
-@extends('adminlte::page')
+@extends('layouts.adminlte')
+@extends('layouts.librerias')
 
-@section('title', 'Guardar Vista')
+@section('content')
+<!-- <link rel = "stylesheet" href= "{{ asset('css/jquery/jquery-ui.min.css') }}"> -->
 
-@section('content_header')
-<div class="header">
-    <center>
-    <h3>Sistema de Control de Registro de Formato de Movimiento de Personal</h3>
- <h5>Departamento Dirección General de Recursos Humanos y Organización/Dirección integral de puestos y servicios personales</h5>
-    </center>
-</div>
-
-    <form enctype="multipart/form-data" method="post" action=""> 
+    <!-- <form  enctype="multipart/form-data" id="formDatos" name="captura1" action="" method="POST">  -->
                         <div class="form-row">
                             <div class="col">
                                 <div class="form-group col-md-12">
-                                    <label class="plantilla-label" for="elRfc">*RFC:</label>
+                                    <label class="plantilla-label" for="elRfc">*CURP:</label>
                                     
-                                    <input type="text"  type="text" class="form-control rfcL border border-dark" id="rfcL_1" name="rfcL_1" placeholder="RFC" value="<?php if(isset($_POST["rfcL_1"])){ echo $_POST["rfcL_1"];} ?>"  onkeyup="javascript:this.value=this.value.toUpperCase();" placeholder="Ingresa rfc" maxlength="13"  required>
+                                    <input type="text" class="" id="curp" name="curp" placeholder="CURP" placeholder="Ingresa curp" maxlength="13"  required>
                                 </div>
                             </div>
                         </div>
-	</form>
-@stop
-@extends('layouts.adminlte')
+                        <input type="button" class="" value="Aceptar" name="botonAccion">              
+	<!-- </form> -->
 
-@section('content')
+    <script>
+ 
+        alert("sss");
 
-
+        var opciones = ['carro', 'moto', 'bici'];
+        $(document).ready(function () { 
+           $('#curp').autocomplete({
+                source: function(request, response){
+                    $.ajax({
+                        url:"{{ route('serch.guadarDoc')}}",
+                        dataType:'json',
+                        data:{
+                            term: request.term
+                        },
+                        success: function(data){
+                            response(data)
+                            
+                        }
+                    });
+                }
+            });
+        });
+        // $(document).ready(function () { 
+                
+        //         $('#curp').autocomplete({
+        //         source: opciones
+                
+        //         });
+        //     });
+    </script>
 @endsection
+
+
