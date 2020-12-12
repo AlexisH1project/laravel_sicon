@@ -6,6 +6,7 @@ use App\Http\Controllers\DSPOController;
 use App\Http\Controllers\DIPSPController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\LoginController;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Role;
 
@@ -56,8 +57,8 @@ Route::get('DSPO/generarReportePC', [DSPOController::class, 'generarReportePC'])
 
 Route::get('DIPSP/autorizaDIPSP', [DIPSPController::class, 'autorizaDIPSP'])-> name('DIPSP.autorizaDIPSP');
 
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 // Pruebas para roles:
-
 Route::get('/test', function(){
     // return Role:: create([
     //     'name' => 'Autorizador',
