@@ -42,6 +42,8 @@ Route::get('DDSCH/actualizarFecha', [DDSCHController::class, 'actualizarFecha'])
 Route::get('DDSCH/qrtxt', [DDSCHController::class, 'qrtxt'])-> name('DDSCH.qrtxt');
 Route::get('DDSCH/capDDSCH', [DDSCHController::class, 'capDDSCH'])-> name('DDSCH.capDDSCH');
 Route::get('DDSCH/guardarVistaEventuales', [DDSCHController::class, 'guardarVistaEventuales'])-> name('DDSCH.guardarVistaEventuales');
+Route::post('DDSCH/autorizaDDSCH', [DDSCHController::class, 'getFomopeTable'])-> name('getFomopeTable');
+
 
 Route::get('General/consultaEstado', [GeneralController::class, 'consultaEstado'])-> name('General.consultaEstado');
 Route::get('General/filtroDescargar', [GeneralController::class, 'filtroDescargar'])-> name('General.filtroDescargar');
@@ -57,7 +59,7 @@ Route::get('DSPO/generarReportePC', [DSPOController::class, 'generarReportePC'])
 
 Route::get('DIPSP/autorizaDIPSP', [DIPSPController::class, 'autorizaDIPSP'])-> name('DIPSP.autorizaDIPSP');
 
-Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 // Pruebas para roles:
 Route::get('/test', function(){
     // return Role:: create([

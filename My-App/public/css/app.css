@@ -1,5 +1,39 @@
-.sidebar {
-  position: fixed;
-  /* Fixed Sidebar (stay in place on scroll) */
+.header h3 {
+    color: #921928;
+  }
+  .header h5 {
+    color: #D2C189;
+  }
+.header{
+    background-color: #FFF8EF;
 }
+.btn-sicon{
+  background-color: #921928 !important;
+}
+
+
+.btn-sicon {background-image: linear-gradient(to right, #e52d27 0%,#921928  51%, #e52d27  100%)}
+.btn-sicon {
+   margin: 10px;
+   padding: 15px 45px;
+   text-align: center;
+   text-transform: uppercase;
+   transition: 0.5s;
+   background-size: 200% auto;
+   color: white;            
+   box-shadow: 0 0 20px #eee;
+   border-radius: 10px;
+   display: block;
+ }
+
+ .btn-sicon:hover {
+   background-position: right center; /* change the direction of the change here */
+   color: #fff;
+   text-decoration: none;
+ }
+.background_content{
+    background: url("/img/fondo5.png");
+    background-size: cover;
+}
+
 

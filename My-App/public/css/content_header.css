@@ -2,8 +2,10 @@
     color: #921928;
   }
   .header h5 {
-    color: #D2C189;
+    color: black;
   }
 .header{
-    background-color: #FFF8EF;
+  background: linear-gradient(0.50turn, #ffff, #D2C189, #ffff);
 }
+
+

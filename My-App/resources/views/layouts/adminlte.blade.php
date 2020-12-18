@@ -9,23 +9,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>SICON | @yield('title')</title>
   <!-- Tell the browser to be responsive to screen width -->
+ 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--CSS personalizadas de SICON-->
   <link rel="stylesheet" href="../css/content_header.css">
-  <link rel="stylesheet" href="../css/background.css">
+  <link rel="stylesheet" href="../css/content_style.css">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse ">
 <div class="wrapper">
 
   <!-- Navbar -->
   
-  <nav class="main-header text-sm navbar navbar-expand navbar-white navbar-dark" style="background: rgb(146, 25, 40) ">
+  <nav class="main-header text-sm navbar navbar-expand navbar-white navbar-dark" style="background: #921928 ">
     <!-- Left navbar links -->
     <ul class="navbar-nav ">
       <li class="nav-item">
@@ -53,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </li>
       @endif
       <li class="nav-item">
-        <a href="{{ url('/logout') }}" class="nav-link">
+        <a href="{{ route('logout') }}" class="nav-link">
           <i class="fas fa-power-off"></i> CERRAR SESIÓN
         </a>
       </li>
@@ -236,10 +238,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <div class="content">
-      <div class='background_content'>
+    <div class="content background_content">
+      
         @yield('content')
-      </div>
+
   </div>
   <!-- /.content-wrapper -->
 
@@ -263,13 +265,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-
+@yield('js')
 <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../dist/js/adminlte.min.js"></script>
+
+
 
 </body>
 </html>
