@@ -47,9 +47,12 @@ Route::post('DDSCH/autorizaDDSCH', [DDSCHController::class, 'getFomopeTable'])->
 
 Route::get('General/consultaEstado', [GeneralController::class, 'consultaEstado'])-> name('General.consultaEstado');
 Route::get('General/filtroDescargar', [GeneralController::class, 'filtroDescargar'])-> name('General.filtroDescargar');
+
+// **************************** busqueda automatizada
 Route::get('General/generarReporte', [GeneralController::class, 'generarReporte'])-> name('General.generarReporte');
-Route::get('General/guardarVista', [GeneralController::class, 'guardarVista'])-> name('General.guardarVista');
-Route::get('Serch/guardarVista', 'GeneralController@resultados_curp')->name('serch.guadarDoc');
+Route::get('General/guardarVista', 'GeneralController@index')-> name('General.guardarVista');
+Route::get('Serch/rfc', 'GeneralController@resultados_rfc')->name('Serch.rfc');
+Route::get('Serch/Crfc', 'GeneralController@resultadosC_rfc')->name('Serch.Crfc');
 
 
 Route::get('DSPO/autorizaDSPO', [DSPOController::class, 'autorizaDSPO'])-> name('DSPO.autorizaDSPO');
