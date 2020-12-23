@@ -71,4 +71,28 @@ class DDSCHController extends Controller
                         })->get();
         return view('DDSCH.autorizaDDSCH', compact('fomope'));
     }
+
+    public function autorizacionFomope(Request $request){
+    
+    $fomopeAutorizarId = $request->get('fomope');
+    $fomopesS = DB::table('fomope')->select('*')->whereIn('id_movimiento', $fomopeAutorizarId)->get();
+/*
+    $results = DB::select( DB::raw("SELECT CURTIME()") );
+     foreach($results as $res){
+         echo $res;
+     }
+*/
+  
+    foreach($fomopesS as $fomope){
+        //echo $fomope->color_estado;
+        //echo $fomope->id_movimiento;
+        $date = new \DateTime();
+        $formatted_date = $date->format('Y-m-d H:i:s');
+        //echo $formatted_date;
+        $mytime = Carbon::now(); 
+        echo $mytime->toDateTimeString(); 
+        }
+   
+    
+    }
 }

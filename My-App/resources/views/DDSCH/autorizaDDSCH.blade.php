@@ -45,7 +45,8 @@
                             <select class="form-control custom-select border-dark" name="anio">
                                 <option value=""></option>
                                 <option value="2019">2019</option>
-                                  <option value="2020">2020</option>	
+                                  <option value="2020">2020</option>
+                                  <option value="2021">2021</option>	
                             </select>
                     </div>
                 </div>		
@@ -99,7 +100,20 @@
 	<td>{{$busqueda->fechaIngreso}}</td>
 	<td>{{$busqueda->codigoMovimiento}}</td>
 	<td>{{$busqueda->fechaAutorizacion}}</td>
-	<td>{{$busqueda->fechaCaptura}}</td>
+  <td>{{$busqueda->fechaCaptura}}</td>
+  <td>
+	@if(strcmp($busqueda->color_estado,"negro")==0)
+            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
+  @elseif(strcmp($busqueda->color_estado,"verde2")==0)
+            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Ver</button>
+  @elseif(strcmp($busqueda->color_estado,"verde")==0)
+            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Capturar</button>
+  @elseif(strcmp($busqueda->color_estado,"gris")==0)
+            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
+  @elseif(strcmp($busqueda->color_estado,"amarillo0")==0)
+            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Ver</button>	
+  @endif                         
+  </td>
 </tr>
 @endforeach    
       </tbody>
@@ -120,6 +134,7 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'amarillo0
     <table class="table table-head-fixed table-bordered table-hover">
       <thead class="thead-light">
         <tr>
+          <th scope="titulo">Autorizar</th>
             <th scope="titulo">Estado Fomope</th>
             <th scope="titulo">Unidad</th>
             <th scope="titulo">RFC</th>
@@ -134,20 +149,35 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'amarillo0
 
 @foreach ($fomopeAutorizar as $busqueda)
 <tr>
-    <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
+  <td>
+    <form method="POST" action="{{route('autorizacionFomope')}}"> 
+      @csrf
+    <div class="custom-control custom-radio">
+      <label><input type="checkbox" value="{{$busqueda->id_movimiento}}" name="fomope[]"></label>
+    </div>
+  </td>
+  <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
 	<td>{{$busqueda->unidad}}</td>
 	<td>{{$busqueda->rfc}}</td>
 	<td>{{$busqueda->quincenaAplicada}}</td>
 	<td>{{$busqueda->fechaIngreso}}</td>
 	<td>{{$busqueda->codigoMovimiento}}</td>
 	<td>{{$busqueda->fechaAutorizacion}}</td>
-	<td>{{$busqueda->fechaCaptura}}</td>
+  <td>{{$busqueda->fechaCaptura}}</td>
+  <td>
+    @if(strcmp($busqueda->color_estado,"amarillo0")==0)
+              <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Ver</button>
+    @elseif(strcmp($busqueda->color_estado,"verde2")==0)
+              <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Ver</button>
+    @endif                         
+    </td>
 </tr>
 @endforeach    
       </tbody>
     </table>
   </div>
-
+  <button type="submit" name="" class="btn btn-outline-info tamanio-button">Autorizar</button> 
+</form> 
   <div class="card bg-secondary text-white">
     <div class="card-body plantilla-inputg text-center"><h2>Rechazados</h2></div>
     </div>
@@ -180,7 +210,14 @@ $fomopeRechazados = DB::table('fomope')->where('color_estado', 'like', 'gris')->
 	<td>{{$busqueda->fechaIngreso}}</td>
 	<td>{{$busqueda->codigoMovimiento}}</td>
 	<td>{{$busqueda->fechaAutorizacion}}</td>
-	<td>{{$busqueda->fechaCaptura}}</td>
+  <td>{{$busqueda->fechaCaptura}}</td>
+  <td>
+    @if(strcmp($busqueda->color_estado,"gris")==0)
+              <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
+    @elseif(strcmp($busqueda->color_estado,"negro")==0)
+              <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
+    @endif                         
+    </td>
 </tr>
 @endforeach    
       </tbody>
@@ -218,7 +255,12 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'verde')->g
 	<td>{{$busqueda->fechaIngreso}}</td>
 	<td>{{$busqueda->codigoMovimiento}}</td>
 	<td>{{$busqueda->fechaAutorizacion}}</td>
-	<td>{{$busqueda->fechaCaptura}}</td>
+  <td>{{$busqueda->fechaCaptura}}</td>
+  <td>
+    @if(strcmp($busqueda->color_estado,"verde")==0)
+              <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Capturar</button>
+    @endif                         
+    </td>
 </tr>
 @endforeach    
       </tbody>
