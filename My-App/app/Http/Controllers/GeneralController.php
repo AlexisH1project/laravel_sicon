@@ -43,49 +43,41 @@ class GeneralController extends Controller
 
     public function resultadosC_rfc(Request $request){
 
-        $term = $request->get('term2');
+        $term2 = $request->get('term2');
         $empleado = DB::table('ct_empleados')
-        ->where('rfc',$term)
+        ->where('rfc',$term2)
         ->get();
-        // foreach ($empleado as $e1) {
-        //     $value[0]= array( 
-        //         "apellido1"=> $e1->apellido_1,
-        //         "apellido2"=> $e1->apellido_2,
-        //         "nombre"=> $e1->nombre,
-        //         "curp"=> $e1->curp
-        //     );
-        // }
-        //var_dump($value);
+        // $empleado = DB::select('select * from ct_empleados where rfc = :rfc', ['rfc' => $term]);
+   
+        foreach ($empleado as $row) {
+            $value[0] = array( 
+                'apellido1'=> $row->apellido_1,
+                'apellido2'=> $row->apellido_2,
+                'nombre'=> $row->nombre,
+                'curp'=> $row->curp
+            );
+        }
 
-        $value[0]= array( 
-            "apellido1"=> "SS",
-            "apellido2"=> "SDSDS",
-            "nombre"=> "SASA",
-            "curp"=> "ASS"
-        );
+        $registrosEmpleado = DB::table('fomope')
+        ->where('rfc',$term2)
+        ->get();
 
-        // $resFomope = DB::table('fomope')
-        // ->where('rfc',$empleado->rfc)
-        // ->get();
-       
-        // $value[1]= 0;
-
-       
-        // $value[1]= 0;
-        // $i = 1;
-        // foreach ($resFomope as $row) {
-
-        //     $value[$i] = array( 
-        //         "id"-> $row->id_movimiento,
-        //         "codigo"-> $row->codigoMovimiento,
-        //         "fecha"-> $row->vigenciaDel,
-        //         "anio"-> $row->anio,
-        //         "qna"-> $row->qnaDeAfectacion
-        //     );
-        //     $i++;
-        // }
-        //return $value;
+        $value[1]= 0;
+        $i = 1;
+        foreach ($registrosEmpleado as $rowReg) {
+            $value[$i] = array( 
+                "id"=> $rowReg->id_movimiento,
+                "codigo"=> $rowReg->codigoMovimiento,
+                "fecha"=> $rowReg->vigenciaDel,
+                "anio"=> $rowReg->anio,
+                "qna"=>  $rowReg->qnaDeAfectacion
+            );
+            $i++;
+        }
+        // return response()->json($value);
         echo json_encode($value);
+        exit;
+
     }
 
   
