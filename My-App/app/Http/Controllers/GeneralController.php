@@ -29,6 +29,12 @@ class GeneralController extends Controller
         //$Fomope = DB::table('fomope')->get();
         return view('General.generarReporte');
     }
+
+    public function verList(){
+        $Documentos = DB::table('m1ct_documentos')->get();
+        return view('General.verList', compact('Documentos'));
+    }
+
     public function resultados_rfc(Request $request){
         $term = $request->get('term');
         $resultado = DB::table('ct_empleados')->select('*')->where('rfc', 'LIKE', '%'.$term.'%')->get();

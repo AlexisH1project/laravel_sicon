@@ -42,12 +42,13 @@ Route::get('DDSCH/actualizarFecha', [DDSCHController::class, 'actualizarFecha'])
 Route::get('DDSCH/qrtxt', [DDSCHController::class, 'qrtxt'])-> name('DDSCH.qrtxt');
 Route::get('DDSCH/capDDSCH', [DDSCHController::class, 'capDDSCH'])-> name('DDSCH.capDDSCH');
 Route::get('DDSCH/guardarVistaEventuales', [DDSCHController::class, 'guardarVistaEventuales'])-> name('DDSCH.guardarVistaEventuales');
-Route::post('DDSCH/autorizaDDSCH', [DDSCHController::class, 'getFomopeTable'])-> name('getFomopeTable');
+Route::post('Consulta', [DDSCHController::class, 'getFomopeTable'])-> name('getFomopeTable');
 Route::post('DDSCH/autorizacionDDSCH', [DDSCHController::class, 'autorizacionFomope'])-> name('autorizacionFomope');
+Route::get('DDSCH/blancoDDSCH', [DDSCHController::class, 'blancoDDSCH'])-> name('blancoDDSCH');
 
 Route::get('General/consultaEstado', [GeneralController::class, 'consultaEstado'])-> name('General.consultaEstado');
 Route::get('General/filtroDescargar', [GeneralController::class, 'filtroDescargar'])-> name('General.filtroDescargar');
-
+Route::get('General/verList', [GeneralController::class, 'verList'])-> name('General.verList');
 // **************************** busqueda automatizada
 Route::get('General/generarReporte', [GeneralController::class, 'generarReporte'])-> name('General.generarReporte');
 Route::get('General/guardarVista', 'GeneralController@index')-> name('General.guardarVista');

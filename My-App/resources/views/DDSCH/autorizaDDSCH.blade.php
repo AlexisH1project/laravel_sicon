@@ -1,5 +1,4 @@
 @extends('layouts.adminlte')
-@inject('funciones', 'App\Http\Controllers\DDSCHController')
 @section('css')
 <link rel="stylesheet" href="{{url('css\autorizaDDSCH.css')}}">    
 @endsection
@@ -7,13 +6,14 @@
 
 @section('content')
 <div class="CapturarFomope">
-    <button type="button" class="btn-sicon text-center">Capturar Fomope</button>
+    <button type="button" onclick="location.href='{{ route('blancoDDSCH') }}'" class="btn-sicon text-center">Capturar Fomope</button>
 
   </div>
 
 <div class="bgsand" style="background: #F2EBD7">
     <form method="POST" action="{{route('getFomopeTable')}}"> 
         @csrf
+        <input type='hidden' name='redirect' class='btn btn btn-success text-white bord' value='autorizaDDSCH'>
         <div class="plantilla-inputv text-center">
             <div class="form-row">
                 <div class="col">
