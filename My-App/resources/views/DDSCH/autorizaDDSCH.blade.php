@@ -93,7 +93,7 @@
 
 @foreach ($fomope as $busqueda)
 <tr>
-    <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
+  <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
 	<td>{{$busqueda->unidad}}</td>
 	<td>{{$busqueda->rfc}}</td>
 	<td>{{$busqueda->quincenaAplicada}}</td>
