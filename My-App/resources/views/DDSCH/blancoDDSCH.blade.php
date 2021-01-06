@@ -6,7 +6,8 @@
 <div class="col-md-8 col-md-offset-8 ">
     <!-- <form name="captura2" action="./Controller/agregarNewRegistro.php" method="POST">  -->
 
-    <form  enctype="multipart/form-data" id="formDatos" name="captura1" action="" method="POST"> 
+    <form  enctype="multipart/form-data" id="formDatos" name="captura1" action="{{route('getFomopeTable')}}" method="POST"> 
+        @csrf
              <div class="form-row">
                 <input type="text" class="form-control" id="botonAccion" name="botonAccion" value="" style="display:none">
                 <input type="text" class="form-control" id="guardarDoc" name="guardarDoc" value="" style="display:none">
@@ -107,8 +108,14 @@
                                    @endforeach     
                                        </select>  
            </div>		
-       </div>		
+       </div>
+
    </div>
+
+   @if(!empty($Documents))
+   <input id="Docs" name="Docs" type="hidden" value="{{$Documents}}">
+   @endif
+
    <br><br>
    <div class="col-md-8 col-md-offset-8">
     <div class="form-row">
@@ -122,23 +129,122 @@
        </div>
    <div class="col">
          <div class="md-form md-0">
+            <input type="button" onclick="enviarDatos();" class="btn btn-outline-info tamanio-button" value="Guardar Documento 2" name="botonAccion">
            <input type="submit" name="guardarAdj" onclick="" class="btn btn-outline-info tamanio-button" value="Guardar Documento"><br>
        </div>	
        <br>
    </div>	
 </div>	
 </div>
+
+
 <div class="card-body table-responsive p-0" style="height: 400px;">
     <table class="table table-head-fixed table-bordered table-hover">  
       <tbody>
 @foreach ($Documentos as $doc)
 <tr>
     <td>{{$doc->nombre_documento}}</td>
-	<td><button class="btn btn-danger" > X </button></td>
+
+    
+@if(!empty($Documents))
+@if(strpos($Documents,$doc->nombre_documento) !== false)
+<td><button class="btn btn-success" > ✔ </button></td>
+@elseif(strpos($Documents,$doc->nombre_documento) !== true)
+<td><button class="btn btn-danger" > X </button></td>
+@endif
+@elseif(empty($Documents))
+<td><button class="btn btn-danger" > X </button></td>
+@endif
+
 </tr>
 @endforeach    
       </tbody>
     </table>
   </div>
+  <button id="enviarT" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Enviar
+   </button>
+
+
+
+											<!-- Modal -->
+											<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title" id="exampleModalLabel">Confirmar</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                      ¿Estas seguro de enviar esta información?
+                                                    </div>
+                                      <center>
+                                <div class="form-group col-md-8">
+                                      <div class="box" >
+  
+                                          <label  class="plantilla-label estilo-colorg" for="laQna">¿A quien será turnado?</label>
+                                                   
+                                                  <select class="form-control border border-dark custom-select" name="usuar">
+                                                      
+                                            
+                                                      <option value=""></option>
+                                                            
+                                                      </select>
+                                          </div>
+                                           <br>  
+  
+                                  </div>
+                                          </center>
+                                                    <div class="modal-footer">
+  
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Regresar</button>
+                                                      <input type="button" onclick="enviarDatos();" class="btn btn-primary" value="Aceptar" name="botonAccion">
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              
+</form>
 </center>
+<script type="text/javascript">
+function enviarDatos(){
+				var formulario = document.captura1;
+				formulario.action= './EnviarFomope';
+				document.getElementById("botonAccion").value = "Aceptar";
+
+				    var a = $("#unexp_1").val();
+				    var b = $("#rfcL_1").val();
+				    var c = $("#curp").val();
+				    var d = $("#apellido1").val();
+				    var e = $("#apellido2").val();
+				    var f = $("#nombre").val();
+				    var g = $("#fechaIngreso").val();
+				    //var h = $("#TipoEntregaArchivo").val();
+				    var i = $("#del2").val();
+
+				     if (b !== '') {
+					      var tamRFC = b.length;
+					 	if (tamRFC<13){
+					    	alert("RFC no valido");
+					    }
+					 }
+					 if (c !== '') {
+					      var tamCURP = c.length;
+					 	if (tamCURP<18){
+					    	alert("CURP no valido");
+					    }
+
+					 }
+				     var tamCURP = c.length;
+
+				      if (a=="" || tamRFC<13 || tamCURP<18 || d==""|| e==""|| f==""|| g==""|| $('input:radio[name=TipoEntregaArchivo]:checked').val() =="Ninguno" || i=="" ) {
+				        alert("Falta completar campo");		
+				        return false;
+				      } else 
+				      	formulario.submit();
+		 }
+
+</script>
 @endsection
