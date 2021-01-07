@@ -33,6 +33,15 @@ class DDSCHController extends Controller
         return view('DDSCH.blancoDDSCH', compact('Documentos'));
     }
 
+    public function EnviarFomope(Request $request){
+        $Documentos = DB::table('m1ct_documentos')->get();
+        $DocumentoAdd = $request->get('documentoSelct');
+        $Docs = $request->get('Docs');
+        $Documents = $DocumentoAdd.$Docs;
+
+        return view('DDSCH.blancoDDSCH', compact('Documentos', 'Documents', 'DocumentoAdd'));
+    }
+
     public function getFomopeTable(Request $request){
         $rfcBuscar = $request->get('rfc');
         $qnaBuscar = $request->get('qnaOption');
