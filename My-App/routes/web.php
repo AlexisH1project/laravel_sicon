@@ -45,7 +45,8 @@ Route::get('DDSCH/guardarVistaEventuales', [DDSCHController::class, 'guardarVist
 Route::post('Consulta', [DDSCHController::class, 'getFomopeTable'])-> name('getFomopeTable');
 Route::post('DDSCH/autorizacionDDSCH', [DDSCHController::class, 'autorizacionFomope'])-> name('autorizacionFomope');
 Route::get('DDSCH/blancoDDSCH', [DDSCHController::class, 'blancoDDSCH'])-> name('blancoDDSCH');
-Route::post('DDSCH/EnviarFomope', [DDSCHController::class, 'EnviarFomope'])-> name('EnviarFomope');
+Route::post('DDSCH/blancoDDSCH', [DDSCHController::class, 'EnviarFomope'])-> name('EnviarFomope');
+Route::post('DDSCH/agregarNewFomope', [DDSCHController::class, 'agregarNewFomope'])-> name('agregarNewFomope');
 
 Route::get('General/consultaEstado', [GeneralController::class, 'consultaEstado'])-> name('General.consultaEstado');
 Route::get('General/filtroDescargar', [GeneralController::class, 'filtroDescargar'])-> name('General.filtroDescargar');

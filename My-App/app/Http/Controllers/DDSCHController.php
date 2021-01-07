@@ -34,12 +34,56 @@ class DDSCHController extends Controller
     }
 
     public function EnviarFomope(Request $request){
+        
         $Documentos = DB::table('m1ct_documentos')->get();
+        $unidad = $request->get('unidad');
+        $rfc = $request->get('rfc');
+        $curp = $request->get('curp');
+        $apellido1 = $request->get('apellido1');
+        $apellido2 = $request->get('apellido2');
+        $nombre = $request->get('nombre');
+        $fechaIngreso = $request->get('fechaIngreso');
+        $al3 = $request->get('al3');
+        $del2 = $request->get('del2');
         $DocumentoAdd = $request->get('documentoSelct');
         $Docs = $request->get('Docs');
         $Documents = $DocumentoAdd.$Docs;
 
-        return view('DDSCH.blancoDDSCH', compact('Documentos', 'Documents', 'DocumentoAdd'));
+        DB::table('fomope')
+        ->updateOrInsert(
+            [
+                'unidad' => $unidad,
+                'rfc' => $rfc,
+                'curp' => $curp,
+                'apellido_1' => $apellido1,
+                'apellido_2' => $apellido2,
+                'nombre' => $nombre
+            ],
+            [
+                'unidad' => $unidad,
+                'rfc' => $rfc,
+                'curp' => $curp,
+                'apellido_1' => $apellido1,
+                'apellido_2' => $apellido2,
+                'nombre' => $nombre,
+                'color_estado' => "amarillo",
+                'fechaIngreso' => $fechaIngreso,
+                'tipoDeAccion' => "x",
+                'justificacionRechazo' => "x",
+                'quincenaAplicada' => "x",
+                'anio' => "x",
+                'oficioUnidad' => "x",
+                'codigo' => "x",
+                'n_puesto' => "x",
+                'usuario_name' => "x"
+            ]
+        );
+
+        return view('DDSCH.blancoDDSCH', compact('Documentos', 'Documents', 'DocumentoAdd', 'unidad', 'rfc', 'curp', 'apellido1', 'apellido2', 'nombre', 'fechaIngreso', 'del2', 'al3'));
+    }
+
+    public function agregarNewFomope(Request $request){
+        echo "hola";
     }
 
     public function getFomopeTable(Request $request){

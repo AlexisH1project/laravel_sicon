@@ -14,23 +14,23 @@
             </div> 
             <div class="form-row">
                 <div class="form-group col-md-12" >
-                    <label class="plantilla-label estilo-colorg" for="unexp_1">Unidad:</label>
-                    <input onkeypress="" type="text" class="form-control unexp border border-dark" id="unexp_1" name="unexp_1" placeholder="Ej. 513" value="" onkeyup="" required>
+                    <label class="plantilla-label estilo-colorg" for="unidad">Unidad:</label>
+                    <input onkeypress="" type="text" class="form-control unexp border border-dark" id="unidad" name="unidad" placeholder="Ej. 513" value="@if(!empty($unidad)){{$unidad}}@endif" onkeyup="" required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="col">
                   <div class="md-form mt-0">
-                   <label class="plantilla-label estilo-colorg" for="rfcL_1" >RFC: </label>
-                    <input type="text"  type="text" class="form-control rfcL border border-dark" id="rfcL_1" name="rfcL_1" placeholder="RFC" value=""  onkeyup="" placeholder="Ingresa rfc" maxlength="13"  required>
+                   <label class="plantilla-label estilo-colorg" for="rfc" >RFC: </label>
+                    <input type="text"  type="text" class="form-control rfcL border border-dark" id="rfc" name="rfc" placeholder="RFC" value="@if(!empty($rfc)){{$rfc}}@endif"  onkeyup="" placeholder="Ingresa rfc" maxlength="13"  required>
                   </div>
                 </div>
 
                 <div class="col">
                   <div class="md-form mt-0">
                     <label class="plantilla-label estilo-colorg" for="CURP">CURP: </label>
-                        <input type="text" class="form-control border border-dark" id="curp" name="curp" placeholder="Ingresa CURP" value="" maxlength="18"  required>
+                        <input type="text" class="form-control border border-dark" id="curp" name="curp" placeholder="Ingresa CURP" value="@if(!empty($curp)){{$curp}}@endif" maxlength="18"  required>
                   </div>
                 </div>
             </div>
@@ -45,19 +45,19 @@
 
                   <div class="col">
                   <div class="md-form mt-0">
-                    <input type="text" class="form-control border border-dark" id="apellido1" name="apellido1" placeholder="Apellido Paterno" value="" maxlength="30"required>
+                    <input type="text" class="form-control border border-dark" id="apellido1" name="apellido1" placeholder="Apellido Paterno" value="@if(!empty($apellido1)){{$apellido1}}@endif" maxlength="30"required>
                   </div>
                 </div>
 
                 <div class="col">
                   <div class="md-form mt-0">
-                    <input type="text" class="form-control border border-dark" id="apellido2" name="apellido2" placeholder="Apellido Materno" value="" maxlength="30"required>
+                    <input type="text" class="form-control border border-dark" id="apellido2" name="apellido2" placeholder="Apellido Materno" value="@if(!empty($apellido2)){{$apellido2}}@endif" maxlength="30"required>
                   </div>
                 </div>
 
                 <div class="col">
                   <div class="md-form mt-0">
-                    <input type="text" class="form-control border border-dark" id="nombre" name="nombre" placeholder="Nombre" maxlength="40" value="" required>
+                    <input type="text" class="form-control border border-dark" id="nombre" name="nombre" placeholder="Nombre" maxlength="40" value="@if(!empty($nombre)){{$nombre}}@endif" required>
                   </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
 
               <div class="form-group col-md-8" >
                   <label class="plantilla-label estilo-colorg" for="fechaIngreso"> FECHA DE RECIBIDO: </label>
-                <input type="date" class="form-control border border-dark" id="fechaIngreso" name="fechaIngreso" placeholder="Ingresa Fecha del ingreso" value="" required>
+                <input type="date" class="form-control border border-dark" id="fechaIngreso" name="fechaIngreso" placeholder="Ingresa Fecha del ingreso" value="@if(!empty($fechaIngreso)){{$fechaIngreso}}@endif" required>
                 
               </div>
           <div class="form-row">
@@ -74,7 +74,7 @@
                 <div class="text-center">
                     <label class="plantilla-label estilo-colorg" for="del2">*Del:</label>
                 </div>
-                    <input type="date" class="form-control border border-dark" id="del2" name="del2" placeholder="Del" value="" required>
+                    <input type="date" class="form-control border border-dark" id="del2" name="del2" placeholder="Del" value="@if(!empty($del2)){{$del2}}@endif" required>
 
                 </small> 
             </div>
@@ -82,7 +82,7 @@
                 <div class="text-center">
                     <label class="plantilla-label estilo-colorg" for="al3">al:</label>
                 </div>
-            <input  type="date" class="form-control border border-dark" id="al3" name="al3" value="" placeholder="al" requiered> <!--required-->
+            <input  type="date" class="form-control border border-dark" id="al3" name="al3" value="@if(!empty($al3)){{$al3}}@endif" placeholder="al" requiered> <!--required-->
             </div>
         </div>
               <div class="form-group col-md-12" >	
@@ -129,8 +129,7 @@
        </div>
    <div class="col">
          <div class="md-form md-0">
-            <input type="button" onclick="enviarDatos();" class="btn btn-outline-info tamanio-button" value="Guardar Documento 2" name="botonAccion">
-           <input type="submit" name="guardarAdj" onclick="" class="btn btn-outline-info tamanio-button" value="Guardar Documento"><br>
+            <input type="button" onclick="enviarDatos();" class="btn btn-outline-info tamanio-button" value="Guardar Documento" name="botonAccion"><br>
        </div>	
        <br>
    </div>	
@@ -148,7 +147,7 @@
     
 @if(!empty($Documents))
 @if(strpos($Documents,$doc->nombre_documento) !== false)
-<td><button class="btn btn-success" > ✔ </button></td>
+<td><button class="btn btn-success" > ✔</button></td>
 @elseif(strpos($Documents,$doc->nombre_documento) !== true)
 <td><button class="btn btn-danger" > X </button></td>
 @endif
@@ -200,7 +199,7 @@
                                                     <div class="modal-footer">
   
                                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Regresar</button>
-                                                      <input type="button" onclick="enviarDatos();" class="btn btn-primary" value="Aceptar" name="botonAccion">
+                                                      <input type="button" onclick="nuevoFomope();" class="btn btn-primary" value="Aceptar" name="botonAccion">
                                                     </div>
                                                   </div>
                                                 </div>
@@ -211,11 +210,48 @@
 <script type="text/javascript">
 function enviarDatos(){
 				var formulario = document.captura1;
-				formulario.action= './EnviarFomope';
+				formulario.action= './blancoDDSCH';
 				document.getElementById("botonAccion").value = "Aceptar";
 
-				    var a = $("#unexp_1").val();
-				    var b = $("#rfcL_1").val();
+				    var a = $("#unidad").val();
+				    var b = $("#rfc").val();
+				    var c = $("#curp").val();
+				    var d = $("#apellido1").val();
+				    var e = $("#apellido2").val();
+				    var f = $("#nombre").val();
+				    var g = $("#fechaIngreso").val();
+				    //var h = $("#TipoEntregaArchivo").val();
+				    var i = $("#del2").val();
+
+				     if (b !== '') {
+					      var tamRFC = b.length;
+					 	if (tamRFC<13){
+					    	alert("RFC no valido");
+					    }
+					 }
+					 if (c !== '') {
+					      var tamCURP = c.length;
+					 	if (tamCURP<18){
+					    	alert("CURP no valido");
+					    }
+
+					 }
+				     var tamCURP = c.length;
+
+				      if (a=="" || tamRFC<13 || tamCURP<18 || d==""|| e==""|| f==""|| g==""|| $('input:radio[name=TipoEntregaArchivo]:checked').val() =="Ninguno" || i=="" ) {
+				        alert("Falta completar campo");		
+				        return false;
+				      } else 
+				      	formulario.submit();
+		 }
+
+         function nuevoFomope(){
+				var formulario = document.captura1;
+				formulario.action= './agregarNewFomope';
+				document.getElementById("botonAccion").value = "Aceptar";
+
+				    var a = $("#unidad").val();
+				    var b = $("#rfc").val();
 				    var c = $("#curp").val();
 				    var d = $("#apellido1").val();
 				    var e = $("#apellido2").val();
