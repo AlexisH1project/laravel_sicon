@@ -53,12 +53,14 @@ Route::get('General/filtroDescargar', [GeneralController::class, 'filtroDescarga
 Route::get('General/verList', [GeneralController::class, 'verList'])-> name('General.verList');
 // **************************** busqueda automatizada
 Route::get('General/generarReporte', [GeneralController::class, 'generarReporte'])-> name('General.generarReporte');
-Route::get('General/guardarVista', 'GeneralController@index')-> name('General.guardarVista');
+Route::get('General/guardarVista', 'GeneralController@indexGuardarVista')-> name('General.guardarVista');
 Route::get('Serch/rfc', 'GeneralController@resultados_rfc')->name('Serch.rfc');
 Route::get('Serch/Crfc', 'GeneralController@resultadosC_rfc')->name('Serch.Crfc');
 //****************************** Guardar documento en el sistema */
 Route::get('guardar/doc', 'GeneralController@guardarDocView')->name('guardar.doc.view');
 Route::post('guardar/doc', 'GeneralController@guardarDoc')->name('guardar.doc');
+
+
 
 Route::get('DSPO/autorizaDSPO', [DSPOController::class, 'autorizaDSPO'])-> name('DSPO.autorizaDSPO');
 Route::get('DSPO/capDSPO', [DSPOController::class, 'capDSPO'])-> name('DSPO.capDSPO');
