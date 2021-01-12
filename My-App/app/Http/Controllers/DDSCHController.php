@@ -1,6 +1,10 @@
 <?php
 
+
 namespace App\Http\Controllers;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Auth;
 use App\Fomope;
 use Illuminate\Http\Request;
@@ -30,12 +34,14 @@ class DDSCHController extends Controller
 
     public function blancoDDSCH(){
         $Documentos = DB::table('m1ct_documentos')->get();
-        return view('DDSCH.blancoDDSCH', compact('Documentos'));
+        $usuarios = DB::table('users')->get();
+        return view('DDSCH.blancoDDSCH', compact('Documentos', 'usuarios'));
     }
 
     public function EnviarFomope(Request $request){
         
         $Documentos = DB::table('m1ct_documentos')->get();
+        $usuarios = DB::table('users')->get();
         $unidad = $request->get('unidad');
         $rfc = $request->get('rfc');
         $curp = $request->get('curp');
@@ -57,7 +63,10 @@ class DDSCHController extends Controller
                 'curp' => $curp,
                 'apellido_1' => $apellido1,
                 'apellido_2' => $apellido2,
-                'nombre' => $nombre
+                'nombre' => $nombre,
+                'fechaIngreso' => $fechaIngreso,
+                'vigenciaDel' => $del2,
+                'vigenciaAl' => $al3
             ],
             [
                 'unidad' => $unidad,
@@ -66,25 +75,246 @@ class DDSCHController extends Controller
                 'apellido_1' => $apellido1,
                 'apellido_2' => $apellido2,
                 'nombre' => $nombre,
-                'color_estado' => "amarillo",
                 'fechaIngreso' => $fechaIngreso,
-                'tipoDeAccion' => "x",
-                'justificacionRechazo' => "x",
-                'quincenaAplicada' => "x",
-                'anio' => "x",
-                'oficioUnidad' => "x",
-                'codigo' => "x",
-                'n_puesto' => "x",
-                'usuario_name' => "x"
+                'vigenciaDel' => $del2,
+                'vigenciaAl' => $al3
             ]
         );
 
-        return view('DDSCH.blancoDDSCH', compact('Documentos', 'Documents', 'DocumentoAdd', 'unidad', 'rfc', 'curp', 'apellido1', 'apellido2', 'nombre', 'fechaIngreso', 'del2', 'al3'));
+        return view('DDSCH.blancoDDSCH', compact('usuarios','Documentos', 'Documents', 'DocumentoAdd', 'unidad', 'rfc', 'curp', 'apellido1', 'apellido2', 'nombre', 'fechaIngreso', 'del2', 'al3'));
     }
 
     public function agregarNewFomope(Request $request){
-        echo "hola";
+        
+        $Documentos = DB::table('m1ct_documentos')->get();
+        $unidad = $request->get('unidad');
+        $rfc = $request->get('rfc');
+        $curp = $request->get('curp');
+        $apellido1 = $request->get('apellido1');
+        $apellido2 = $request->get('apellido2');
+        $nombre = $request->get('nombre');
+        $fechaIngreso = $request->get('fechaIngreso');
+        $al3 = $request->get('al3');
+        $del2 = $request->get('del2');
+        $tipoEntregaAdd = $request->get('TipoEntregaArchivo');
+        $radioAdd_rechazar = $request->get('botonAccion');
+        $motivoR = $request->get('motivoR');
+        $analista = $request->get('usuar');
+        $DocumentoAdd = $request->get('documentoSelct');
+        $mytime = Carbon::now();
+        $mytime->setTimezone('GMT-6'); 
+        $user_Fecha =$mytime->toDateString()." - ". Auth::user()->usuario;
+
+        if(Auth::user()->id_rol == 1){
+            $colorAccion = "amarillo";
+            $fechaAutorizacion ="";
+        }else if(Auth::user()->id_rol == 0){
+            $colorAccion = "amarillo0";
+            $fechaAutorizacion = Auth::user()->usuario." - ".$mytime->toDateString();
+        }
+
+        DB::table('fomope')
+        ->updateOrInsert(
+            [
+                'unidad' => $unidad,
+                'rfc' => $rfc,
+                'curp' => $curp,
+                'apellido_1' => $apellido1,
+                'apellido_2' => $apellido2,
+                'nombre' => $nombre,
+                'fechaIngreso' => $fechaIngreso,
+                'vigenciaDel' => $del2,
+                'vigenciaAl' => $al3
+            ],
+            [
+                'color_estado' => $colorAccion,
+                'usuario_name' => Auth::user()->usuario,
+                'unidad' => $unidad,
+                'rfc' => $rfc,
+                'curp' => $curp,
+                'apellido_1' => $apellido1,
+                'apellido_2' => $apellido2,
+                'nombre' => $nombre,
+                'fechaIngreso' => $fechaIngreso,
+                'vigenciaDel' => $del2,
+                'vigenciaAl' => $al3,
+                'tipoEntrega' => $tipoEntregaAdd,
+                'fechaAutorizacion' => $fechaAutorizacion,
+                'tipoDeAccion'=> "Aceptar",
+                'justificacionRechazo' => $motivoR,
+                'quincenaAplicada' => "2",//$laQna,
+                'fechaEntregaArchivo' => $mytime->toDateString(),
+                'fechaEntregaRLaborales' => "Pendiente",
+                'OfEntregaRLaborales' => "Pendiente",
+                'fomopeDigital' => "Pendiente",
+                'fechaEntregaUnidad' => "Pendiente",
+                'OfEntregaUnidad' => "Pendiente",
+                'fechaAutorizacion' => $user_Fecha,
+                'analistaCap' => $analista,
+                'fechaCaptura' => $user_Fecha
+            ]
+        );
+
+        $ultimoFomope = DB::table('fomope')->max('id_movimiento');
+
+        DB::table('ct_empleados')
+        ->updateOrInsert(
+            [
+                'rfc' => $rfc,
+                'curp' => $curp,
+                'apellido_1' => $apellido1,
+                'apellido_2' => $apellido2,
+                'nombre' => $nombre
+            ],
+            [
+                'rfc' => $rfc,
+                'curp' => $curp,
+                'apellido_1' => $apellido1,
+                'apellido_2' => $apellido2,
+                'nombre' => $nombre
+            ]
+        );
+
+        DB::table('historial')
+        ->updateOrInsert(
+            [
+                'id_movimiento' => $ultimoFomope,
+                'usuario' => Auth::user()->usuario,
+                'fechaMovimiento' => $mytime->toDateString(),
+                'horaMovimiento' => $mytime->toTimeString()
+            ],
+            [
+                'id_movimiento' => $ultimoFomope,
+                'usuario' => Auth::user()->usuario,
+                'fechaMovimiento' => $mytime->toDateString(),
+                'horaMovimiento' => $mytime->toTimeString()
+            ]
+        );
+
     }
+
+    public function rechazarFomope(Request $request){
+        
+        $Documentos = DB::table('m1ct_documentos')->get();
+        $penultimoFomope = DB::table('fomope')->max('id_movimiento');
+        $unidad = $request->get('unidad');
+        $rfc = $request->get('rfc');
+        $curp = $request->get('curp');
+        $apellido1 = $request->get('apellido1');
+        $apellido2 = $request->get('apellido2');
+        $nombre = $request->get('nombre');
+        $fechaIngreso = $request->get('fechaIngreso');
+        $al3 = $request->get('al3');
+        $del2 = $request->get('del2');
+        $tipoEntregaAdd = $request->get('TipoEntregaArchivo');
+        $radioAdd_rechazar = $request->get('botonAccion');
+        $motivoR = $request->get('comentarioR');
+        $analista = $request->get('usuar');
+        $DocumentoAdd = $request->get('documentoSelct');
+        $mytime = Carbon::now();
+        $mytime->setTimezone('GMT-6'); 
+        $user_Fecha =$mytime->toDateString()." - ". Auth::user()->usuario;
+
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("excel/rechazoL.xls");
+        $sheet = $spreadsheet->getActiveSheet();  
+        $sheet->setCellValue('H11',$fechaIngreso);
+        $sheet->setCellValue('D13', $apellido1." ".$apellido2." ".$nombre);
+        $sheet->setCellValue('D15', $motivoR);
+        $sheet->setCellValue('D19', $unidad);
+        $sheet->setCellValue('D23', $motivoR);
+        $sheet->setCellValue('B32', Auth::user()->name);
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('volanteRechazo_'.$curp.'.xlsx');
+       
+
+
+        if(Auth::user()->id_rol == 1){
+            $fechaAutorizacion ="";
+        }else if(Auth::user()->id_rol == 0){
+            $fechaAutorizacion = $user_Fecha;
+        }
+
+        DB::table('fomope')
+        ->updateOrInsert(
+            [
+                'unidad' => $unidad,
+                'rfc' => $rfc,
+                'curp' => $curp,
+                'apellido_1' => $apellido1,
+                'apellido_2' => $apellido2,
+                'nombre' => $nombre,
+                'fechaIngreso' => $fechaIngreso,
+                'vigenciaDel' => $del2,
+                'vigenciaAl' => $al3
+            ],
+            [
+                'color_estado' => "negro",
+                'usuario_name' => Auth::user()->usuario,
+                'unidad' => $unidad,
+                'rfc' => $rfc,
+                'curp' => $curp,
+                'apellido_1' => $apellido1,
+                'apellido_2' => $apellido2,
+                'nombre' => $nombre,
+                'fechaIngreso' => $fechaIngreso,
+                'vigenciaDel' => $del2,
+                'vigenciaAl' => $al3,
+                'tipoEntrega' => $tipoEntregaAdd,
+                'tipoDeAccion'=> "Rechazar",
+                'justificacionRechazo' => $motivoR,
+                'fechaAutorizacion' => $fechaAutorizacion,
+                'quincenaAplicada' => "2",//$laQna,
+                'fechaEntregaArchivo' => $mytime->toDateString(),
+                'fechaEntregaRLaborales' => "Pendiente",
+                'OfEntregaRLaborales' => "Pendiente",
+                'fomopeDigital' => "Pendiente",
+                'fechaEntregaUnidad' => "Pendiente",
+                'OfEntregaUnidad' => "Pendiente",
+                'fechaAutorizacion' => $user_Fecha,
+                'analistaCap' => $analista,
+                'fechaCaptura' => $user_Fecha
+            ]
+        );
+        $ultimoFomope = DB::table('fomope')->max('id_movimiento');
+
+        DB::table('rechazos')
+        ->updateOrInsert(
+            [
+                'id_movimiento' => $ultimoFomope,
+                'justificacionRechazo' => $motivoR,
+                'usuario' => Auth::user()->usuario,
+                'fechaRechazo' => $mytime->toDateString()
+            ],
+            [
+                'id_movimiento' => $ultimoFomope,
+                'justificacionRechazo' => $motivoR,
+                'usuario' => Auth::user()->usuario,
+                'fechaRechazo' => $mytime->toDateString()
+            ]
+        );
+
+        DB::table('historial')
+        ->updateOrInsert(
+            [
+                'id_movimiento' => $ultimoFomope,
+                'usuario' => Auth::user()->usuario,
+                'fechaMovimiento' => $mytime->toDateString(),
+                'horaMovimiento' => $mytime->toTimeString()
+            ],
+            [
+                'id_movimiento' => $ultimoFomope,
+                'usuario' => Auth::user()->usuario,
+                'fechaMovimiento' => $mytime->toDateString(),
+                'horaMovimiento' => $mytime->toTimeString()
+            ]
+        );
+
+
+        
+    }
+
+
+
 
     public function getFomopeTable(Request $request){
         $rfcBuscar = $request->get('rfc');
@@ -134,7 +364,7 @@ class DDSCHController extends Controller
     $fomopesS = DB::table('fomope')->select('*')->whereIn('id_movimiento', $fomopeAutorizarId)->get();
     $mytime = Carbon::now();
     $mytime->setTimezone('GMT-6'); 
-    $user_Fecha =$mytime->toDateString()." - ". Auth::user()->name;
+    $user_Fecha =$mytime->toDateString()." - ". Auth::user()->usuario;
     foreach($fomopesS as $fomope){
 
         if(strcmp($fomope->color_estado,"amarillo0")==0){
@@ -152,7 +382,7 @@ class DDSCHController extends Controller
         }
         $insert = DB::insert(
             'insert into historial (id_movimiento,usuario,fechaMovimiento,horaMovimiento) values (?,?,?,?)',                
-            [$fomope->id_movimiento, Auth::user()->name, $mytime->toDateString(),  $mytime->toTimeString()]
+            [$fomope->id_movimiento, Auth::user()->usuario, $mytime->toDateString(),  $mytime->toTimeString()]
         );
 
         }

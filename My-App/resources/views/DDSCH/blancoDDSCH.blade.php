@@ -160,9 +160,13 @@
       </tbody>
     </table>
   </div>
-  <button id="enviarT" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  <button id="enviarT" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">
     Enviar
    </button>
+<br><br>
+    <button type="button" id="rechazarT" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal1">
+      Rechazar
+    </button>
 
 
 
@@ -188,7 +192,11 @@
                                                   <select class="form-control border border-dark custom-select" name="usuar">
                                                       
                                             
-                                                      <option value=""></option>
+                                                    @foreach ($usuarios as $user)
+                                                    @if($user->id_rol==3  || $user->id_rol==2)
+                                                    <option value="{{$user->usuario}}">{{$user->name}}</option>
+                                                    @endif
+                                                    @endforeach
                                                             
                                                       </select>
                                           </div>
@@ -204,14 +212,34 @@
                                                   </div>
                                                 </div>
                                               </div>
+                      
+                                              <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title" id="exampleModalLabel">Motivo de rechazo</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <textarea class="form-control border border-dark" id="comentarioR" name="comentarioR" rows="3" placeholder="Escribe el motivo del rechazo..." required ></textarea> 
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Regresar</button>
+                                                      <input type="submit" class="btn btn-primary" onclick="rechazarDoc();" value="Rechazar" name="botonAccion">
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
                                               
 </form>
 </center>
 <script type="text/javascript">
+
 function enviarDatos(){
 				var formulario = document.captura1;
 				formulario.action= './blancoDDSCH';
-				document.getElementById("botonAccion").value = "Aceptar";
 
 				    var a = $("#unidad").val();
 				    var b = $("#rfc").val();
@@ -248,7 +276,6 @@ function enviarDatos(){
          function nuevoFomope(){
 				var formulario = document.captura1;
 				formulario.action= './agregarNewFomope';
-				document.getElementById("botonAccion").value = "Aceptar";
 
 				    var a = $("#unidad").val();
 				    var b = $("#rfc").val();
@@ -282,5 +309,28 @@ function enviarDatos(){
 				      	formulario.submit();
 		 }
 
+     function rechazarDoc(){
+				var formulario = document.captura1;
+        formulario.action= './rechazarFomope';
+				    var a = $("#unexp_1").val();
+				    var b = $("#rfcL_1").val();
+				    var c = $("#curp").val();
+				    var d = $("#apellido1").val();
+				    var e = $("#apellido2").val();
+				    var f = $("#nombre").val();
+				    var g = $("#fechaIngreso").val();
+				    var h = $("#comentarioR").val();
+				    $('#nameArchivo').removeAttr("required");
+            $('#comentarioR').removeAttr("required");
+				    
+				      if (a=="" || b=="" || c==""|| d==""|| e==""|| f==""|| g=="" || h=="") {
+					        alert("Falta completar campo");		
+					        return false;
+				      } else{
+				      	formulario.submit();}
+			}
+
 </script>
+
+
 @endsection

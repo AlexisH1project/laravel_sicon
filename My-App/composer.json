@@ -16,7 +16,9 @@
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
         "laravel/ui": "2.4",
-        "nesbot/carbon": "^2.43"
+        "maatwebsite/excel": "^3.1",
+        "nesbot/carbon": "^2.43",
+        "phpoffice/phpspreadsheet": "^1.16"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
