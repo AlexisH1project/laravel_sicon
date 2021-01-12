@@ -224,8 +224,16 @@ class DDSCHController extends Controller
         $sheet->setCellValue('D23', $motivoR);
         $sheet->setCellValue('B32', Auth::user()->name);
         $writer = new Xlsx($spreadsheet);
-        $writer->save('volanteRechazo_'.$curp.'.xlsx');
-       
+        //$writer->save('volanteRechazo_'.$curp.'.xlsx');
+        //$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+        //$file_name = 'volanteRechazo_'.$curp.'.xlsx'; //it depends where you want to save the excel
+        //$writer->save($file_name);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="volanteRechazo_'.$curp.'.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
 
 
         if(Auth::user()->id_rol == 1){
