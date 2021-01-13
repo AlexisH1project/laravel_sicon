@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -135,5 +138,158 @@ class GeneralController extends Controller
                 // ->with('rfc',$request->get('rfc'));
         }
     }
+
+
+    public function reporteBusqueda(Request $request){
+        $fomy = $request->get('fomope');
+        $fomopes = DB::table('fomope')->select('*')->whereIn('id_movimiento', $fomy)->get();
+
+        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("excel/reporteFiltro.xls");
+        $sheet = $spreadsheet->getActiveSheet();
+        $fila=8;
+        foreach($fomopes as $fomope){
+            
+                        $sheet->setCellValue('A'.$fila, $fomope->id_movimiento); 
+		                $sheet->setCellValue('B'.$fila, getEstadoFomope($fomope->color_estado)); 
+		                $sheet->setCellValue('C'.$fila, $fomope->usuario_name); 
+		                $sheet->setCellValue('D'.$fila, $fomope->unidad); 
+		                $sheet->setCellValue('E'.$fila, $fomope->); 
+		                $sheet->setCellValue('F'.$fila, $fomope->curp);
+		                $sheet->setCellValue('G'.$fila, $fomope->apellido_1);
+		                $sheet->setCellValue('H'.$fila, $fomope->rfc);
+		                $sheet->setCellValue('I'.$fila, $fomope->apellido_1);
+		                $sheet->setCellValue('J'.$fila, $fomope->apellido_2);
+		                $sheet->setCellValue('K'.$fila, $fomope->nombre);
+		                $sheet->setCellValue('L'.$fila, $fomope->tipoEntrega);
+		                $sheet->setCellValue('M'.$fila, $fomope->tipoDeAccion);
+		                $sheet->setCellValue('N'.$fila, $fomope->justificacionRechazo);
+		                $sheet->setCellValue('O'.$fila, $fomope->quincenaAplicada);
+		                $sheet->setCellValue('P'.$fila, $fomope->anio);
+		                $sheet->setCellValue('Q'.$fila, $fomope->oficioUnidad);
+		                $sheet->setCellValue('R'.$fila, $fomope->fechaOficio);
+		                $sheet->setCellValue('S'.$fila, $fomope->fechaRecibido);
+		                $sheet->setCellValue('T'.$fila, $fomope->codigo);
+		                $sheet->setCellValue('U'.$fila, $fomope->n_puesto);
+		                $sheet->setCellValue('V'.$fila, $fomope->clavePresupuestaria);
+		                $sheet->setCellValue('W'.$fila, $fomope->codigoMovimiento);
+		                $sheet->setCellValue('X'.$fila, $fomope->descripcionMovimiento);
+		                $sheet->setCellValue('Y'.$fila, $fomope->vigenciaDel);
+		                $sheet->setCellValue('Z'.$fila, $fomope->vigenciaAl);
+						$sheet->setCellValue('AA'.$fila, $fomope->entidad); 
+						$sheet->setCellValue('AB'.$fila, $fomope->consecutivoMaestroPuestos); 
+						$sheet->setCellValue('AC'.$fila, $fomope->puestos); 
+						$sheet->setCellValue('AD'.$fila, $fomope->observaciones); 
+						$sheet->setCellValue('AE'.$fila, $fomope->fechaEnviadaRubricaDspo); 
+						$sheet->setCellValue('AF'.$fila, $fomope->fechaEnviadaRubricaDipsp); 
+						$sheet->setCellValue('AG'.$fila, $fomope->fechaEnviadaRubricaDgrho); 
+						$sheet->setCellValue('AH'.$fila, $fomope->fechaRecepcionSpc); 
+						$sheet->setCellValue('AI'.$fila, $fomope->fechaEnvioSpc); 
+						$sheet->setCellValue('AJ'.$fila, $fomope->fechaReciboDspo); 
+						$sheet->setCellValue('AK'.$fila, $fomope->folioSpc); 
+						$sheet->setCellValue('AL'.$fila, $fomope->fechaCapturaNomina); 
+						$sheet->setCellValue('AM'.$fila, $fomope->fechaEntregaArchivo); 
+						$sheet->setCellValue('AN'.$fila, $fomope->fechaEntregaRLaborales); 
+						$sheet->setCellValue('AO'.$fila, $fomope->OfEntregaRLaborales); 
+						$sheet->setCellValue('AP'.$fila, $fomope->fomopeDigital); 
+						$sheet->setCellValue('AQ'.$fila, $fomope->fechaEntregaUnidad); 
+						$sheet->setCellValue('AR'.$fila, $fomope->OfEntregaUnidad); 
+						$sheet->setCellValue('AS'.$fila, $fomope->fechaAutorizacion); 
+						$sheet->setCellValue('AT'.$fila, $fomope->analistaCap); 
+						$sheet->setCellValue('AU'.$fila, $fomope->fechaCaptura); 
+					/*	$sheet->setCellValue('AV'.$fila, $fomope->doc1); 
+						$sheet->setCellValue('AW'.$fila, $fomope->doc2); 
+						$sheet->setCellValue('AX'.$fila, $fomope->doc3); 
+						$sheet->setCellValue('AY'.$fila, $fomope->doc4); 
+						$sheet->setCellValue('AZ'.$fila, $fomope->doc5); 
+		                $sheet->setCellValue('BA'.$fila, $fomope->doc6); 
+		                $sheet->setCellValue('BB'.$fila, $fomope->doc7); 
+		                $sheet->setCellValue('BC'.$fila, $fomope->doc8); 
+		                $sheet->setCellValue('BD'.$fila, $fomope->doc9); 
+		                $sheet->setCellValue('BE'.$fila, $fomope->doc10); 
+		                $sheet->setCellValue('BF'.$fila, $fomope->doc11); 
+		                $sheet->setCellValue('BG'.$fila, $fomope->doc12); 
+		                $sheet->setCellValue('BH'.$fila, $fomope->doc13); 
+		                $sheet->setCellValue('BI'.$fila, $fomope->doc14); 
+		                $sheet->setCellValue('BJ'.$fila, $fomope->doc15); 
+		                $sheet->setCellValue('BK'.$fila, $fomope->doc16); 
+		                $sheet->setCellValue('BL'.$fila, $fomope->doc17); 
+		                $sheet->setCellValue('BM'.$fila, $fomope->doc18); 
+		                $sheet->setCellValue('BN'.$fila, $fomope->doc19); 
+		                $sheet->setCellValue('BO'.$fila, $fomope->doc20); 
+		                $sheet->setCellValue('BP'.$fila, $fomope->doc21); 
+		                $sheet->setCellValue('BK'.$fila, $fomope->doc22); 
+		                $sheet->setCellValue('BR'.$fila, $fomope->doc23); 
+		                $sheet->setCellValue('BS'.$fila, $fomope->doc24); 
+		                $sheet->setCellValue('BT'.$fila, $fomope->doc25); 
+		                $sheet->setCellValue('BU'.$fila, $fomope->doc26); 
+		                $sheet->setCellValue('BV'.$fila, $fomope->doc27); 
+		                $sheet->setCellValue('BW'.$fila, $fomope->doc28); 
+		                $sheet->setCellValue('BX'.$fila, $fomope->doc29); 
+		                $sheet->setCellValue('BY'.$fila, $fomope->doc30); 
+		                $sheet->setCellValue('BZ'.$fila, $fomope->doc31);
+		                $sheet->setCellValue('CA'.$fila, $fomope->doc32); 
+		                $sheet->setCellValue('CB'.$fila, $fomope->doc33); 
+		                $sheet->setCellValue('CC'.$fila, $fomope->doc34); 
+		                $sheet->setCellValue('CD'.$fila, $fomope->doc35); 
+		                $sheet->setCellValue('CE'.$fila, $fomope->doc36); 
+		                $sheet->setCellValue('CF'.$fila, $fomope->doc37); 
+		                $sheet->setCellValue('CG'.$fila, $fomope->doc38); 
+		                $sheet->setCellValue('CH'.$fila, $fomope->doc39); 
+		                $sheet->setCellValue('CI'.$fila, $fomope->doc40); 
+		                $sheet->setCellValue('CJ'.$fila, $fomope->doc41); 
+		                $sheet->setCellValue('CK'.$fila, $fomope->doc42); 
+		                $sheet->setCellValue('CL'.$fila, $fomope->doc43); 
+		                $sheet->setCellValue('CM'.$fila, $fomope->doc44); 
+		                $sheet->setCellValue('CN'.$fila, $fomope->doc45); 
+		                $sheet->setCellValue('CO'.$fila, $fomope->doc46); 
+		                $sheet->setCellValue('CP'.$fila, $fomope->doc47); 
+		                $sheet->setCellValue('CK'.$fila, $fomope->doc48); 
+		                $sheet->setCellValue('CR'.$fila, $fomope->doc49); 
+		                $sheet->setCellValue('CS'.$fila, $fomope->doc50); 
+		                $sheet->setCellValue('CT'.$fila, $fomope->doc51); 
+		                $sheet->setCellValue('CU'.$fila, $fomope->doc52); 
+		                $sheet->setCellValue('CV'.$fila, $fomope->doc53); 
+		                $sheet->setCellValue('CW'.$fila, $fomope->doc54); 
+		                $sheet->setCellValue('CX'.$fila, $fomope->doc55); 
+		                $sheet->setCellValue('CY'.$fila, $fomope->doc56); 
+		                $sheet->setCellValue('CZ'.$fila, $fomope->doc57); 
+		                $sheet->setCellValue('DA'.$fila, $fomope->doc58); 
+		                $sheet->setCellValue('DB'.$fila, $fomope->doc59); 
+		                $sheet->setCellValue('DC'.$fila, $fomope->doc60); 
+		                $sheet->setCellValue('DD'.$fila, $fomope->doc61); 
+		                $sheet->setCellValue('DE'.$fila, $fomope->doc62); 
+		                $sheet->setCellValue('DF'.$fila, $fomope->doc63); 
+		                $sheet->setCellValue('DG'.$fila, $fomope->doc64); 
+		                $sheet->setCellValue('DH'.$fila, $fomope->doc65); 
+		                $sheet->setCellValue('DI'.$fila, $fomope->doc66); 
+		                $sheet->setCellValue('DJ'.$fila, $fomope->doc67); 
+		                $sheet->setCellValue('DK'.$fila, $fomope->doc68); 
+		                $sheet->setCellValue('DL'.$fila, $fomope->doc69); 
+		                $sheet->setCellValue('DM'.$fila, $fomope->doc70); 
+		                $sheet->setCellValue('DN'.$fila, $fomope->doc71);*/
+		                $sheet->setCellValue('AV'.$fila, $fomope->qnaDeAfectacion);
+		                $sheet->setCellValue('AW'.$fila, $fomope->usuarioAdjuntarDoc);
+		                $sheet->setCellValue('AX'.$fila, $fomope->idProfesionalCarrera); 
+                        $sheet->setCellValue('AY'.$fila, $fomope->fechaValidacionPersonal);
+
+                        $fila=$fila+1;
+                        
+
+        }
+
+        $writer = new Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="reporteConsulta.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+
+        
+      
+    }
+
+
+
   
 }

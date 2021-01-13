@@ -84,6 +84,12 @@
     </div>
 </form>
 
+<div class="form-group col-md-12">
+            <div class="col text-center">
+                    <button type="button" onclick="location.href='{{ route('General.consultaEstado') }}'" class="btn btn-secondary" name="borrar" value="Borrar">Borrar</button>  
+            </div>
+        </div>
+
 @if(!empty($fomope))
 <br>
 <div class="card bg-secondary text-white">
@@ -118,7 +124,8 @@
 	<td>{{$busqueda->fechaAutorizacion}}</td>
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
-	<button type="button" onclick="location.href='{{ route('General.verList') }}'" class="btn-secondary" value='Ver lista de Doc.'>Ver lista de Doc.</button>                       
+    <button type="button" onclick="location.href='{{ route('General.verList') }}'" class="btn-secondary" value='Ver lista de Doc.'>Ver lista de Doc.</button>
+                         
   </td>
 </tr>
 @endforeach    
@@ -126,7 +133,15 @@
     </table>
   </div>
 </div>
-    
+
+<br><br>
+<form action = "{{ route('General.reporteBusqueda') }}" method="POST">
+    @csrf
+   @foreach ($fomope as $collecion)
+       <input type="hidden" name="fomope[]" value="{{$collecion->id_movimiento}}">
+   @endforeach
+      <input type="submit" class='btn btn btn-success text-white bord' value ="Generar Excel">
+</form>
 @endif
 </center>
 @endsection

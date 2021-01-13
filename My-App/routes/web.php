@@ -50,6 +50,7 @@ Route::post('DDSCH/agregarNewFomope', [DDSCHController::class, 'agregarNewFomope
 Route::post('DDSCH/rechazarFomope', [DDSCHController::class, 'rechazarFomope'])-> name('rechazarFomope');
 
 Route::get('General/consultaEstado', [GeneralController::class, 'consultaEstado'])-> name('General.consultaEstado');
+Route::post('General/reporteBusqueda', [GeneralController::class, 'reporteBusqueda'])-> name('General.reporteBusqueda');
 Route::get('General/filtroDescargar', [GeneralController::class, 'filtroDescargar'])-> name('General.filtroDescargar');
 Route::get('General/verList', [GeneralController::class, 'verList'])-> name('General.verList');
 // **************************** busqueda automatizada
