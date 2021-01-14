@@ -42,6 +42,7 @@ class DDSCHController extends Controller
         
         $Documentos = DB::table('m1ct_documentos')->get();
         $usuarios = DB::table('users')->get();
+        $quincena = DB::table('m1ct_fechasnomina')->where('estadoActual','abierta')->value('id_qna');
         $unidad = $request->get('unidad');
         $rfc = $request->get('rfc');
         $curp = $request->get('curp');
@@ -54,6 +55,9 @@ class DDSCHController extends Controller
         $DocumentoAdd = $request->get('documentoSelct');
         $Docs = $request->get('Docs');
         $Documents = $DocumentoAdd.$Docs;
+        $mytime = Carbon::now();
+        $mytime->setTimezone('GMT-6'); 
+        
 
         DB::table('fomope')
         ->updateOrInsert(
@@ -79,7 +83,23 @@ class DDSCHController extends Controller
                 'nombre' => $nombre,
                 'fechaIngreso' => $fechaIngreso,
                 'vigenciaDel' => $del2,
-                'vigenciaAl' => $al3
+                'vigenciaAl' => $al3,
+                'tipoDeAccion' => "",
+                'justificacionRechazo' => "",
+                'quincenaAplicada' => $quincena, //llenar
+                'anio' => $mytime->weekYear(), //llenar
+                'oficioUnidad' => "",
+                'codigo' => "",
+                'n_puesto' => "",
+                'clavePresupuestaria' => "",
+                'codigoMovimiento' => "",
+                'descripcionMovimiento' => "",
+                'entidad' => "",
+                'consecutivoMaestroPuestos' => "",
+                'puestos' => "",
+                'usuarioAdjuntarDoc' => "",
+                'idProfesionalCarrera' => "",
+                'fechaValidacionPersonal' => $mytime->toDateString()
             ]
         );
 
@@ -89,6 +109,7 @@ class DDSCHController extends Controller
     public function agregarNewFomope(Request $request){
         
         $Documentos = DB::table('m1ct_documentos')->get();
+        $quincena = DB::table('m1ct_fechasnomina')->where('estadoActual','abierta')->value('id_qna');
         $unidad = $request->get('unidad');
         $rfc = $request->get('rfc');
         $curp = $request->get('curp');
@@ -144,7 +165,7 @@ class DDSCHController extends Controller
                 'fechaAutorizacion' => $fechaAutorizacion,
                 'tipoDeAccion'=> "Aceptar",
                 'justificacionRechazo' => $motivoR,
-                'quincenaAplicada' => "2",//$laQna,
+                'quincenaAplicada' => $quincena,//$laQna,
                 'fechaEntregaArchivo' => $mytime->toDateString(),
                 'fechaEntregaRLaborales' => "Pendiente",
                 'OfEntregaRLaborales' => "Pendiente",
@@ -153,7 +174,23 @@ class DDSCHController extends Controller
                 'OfEntregaUnidad' => "Pendiente",
                 'fechaAutorizacion' => $user_Fecha,
                 'analistaCap' => $analista,
-                'fechaCaptura' => $user_Fecha
+                'fechaCaptura' => $user_Fecha,
+                'tipoDeAccion' => "",
+                'justificacionRechazo' => "",
+                'anio' => $mytime->weekYear(), //llenar
+                'oficioUnidad' => "",
+                'codigo' => "",
+                'n_puesto' => "",
+                'clavePresupuestaria' => "",
+                'codigoMovimiento' => "",
+                'descripcionMovimiento' => "",
+                'entidad' => "",
+                'consecutivoMaestroPuestos' => "",
+                'puestos' => "",
+                'usuarioAdjuntarDoc' => "",
+                'idProfesionalCarrera' => "",
+                'fechaValidacionPersonal' => $mytime->toDateString()
+                
             ]
         );
 
@@ -199,6 +236,7 @@ class DDSCHController extends Controller
         
         $Documentos = DB::table('m1ct_documentos')->get();
         $penultimoFomope = DB::table('fomope')->max('id_movimiento');
+        $quincena = DB::table('m1ct_fechasnomina')->where('estadoActual','abierta')->value('id_qna');
         $unidad = $request->get('unidad');
         $rfc = $request->get('rfc');
         $curp = $request->get('curp');
@@ -269,7 +307,7 @@ class DDSCHController extends Controller
                 'tipoDeAccion'=> "Rechazar",
                 'justificacionRechazo' => $motivoR,
                 'fechaAutorizacion' => $fechaAutorizacion,
-                'quincenaAplicada' => "2",//$laQna,
+                'quincenaAplicada' => $quincena,//$laQna,
                 'fechaEntregaArchivo' => $mytime->toDateString(),
                 'fechaEntregaRLaborales' => "Pendiente",
                 'OfEntregaRLaborales' => "Pendiente",
@@ -278,7 +316,22 @@ class DDSCHController extends Controller
                 'OfEntregaUnidad' => "Pendiente",
                 'fechaAutorizacion' => $user_Fecha,
                 'analistaCap' => $analista,
-                'fechaCaptura' => $user_Fecha
+                'fechaCaptura' => $user_Fecha,
+                'tipoDeAccion' => "",
+                'justificacionRechazo' => "",
+                'anio' => $mytime->weekYear(), //llenar
+                'oficioUnidad' => "",
+                'codigo' => "",
+                'n_puesto' => "",
+                'clavePresupuestaria' => "",
+                'codigoMovimiento' => "",
+                'descripcionMovimiento' => "",
+                'entidad' => "",
+                'consecutivoMaestroPuestos' => "",
+                'puestos' => "",
+                'usuarioAdjuntarDoc' => "",
+                'idProfesionalCarrera' => "",
+                'fechaValidacionPersonal' => $mytime->toDateString()
             ]
         );
         $ultimoFomope = DB::table('fomope')->max('id_movimiento');

@@ -146,6 +146,7 @@ class GeneralController extends Controller
 
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("excel/reporteFiltro.xls");
         $sheet = $spreadsheet->getActiveSheet();
+        $sheet = $spreadsheet->getSheetByName('Estructura');
         $fila=8;
         foreach($fomopes as $fomope){
             
@@ -153,13 +154,13 @@ class GeneralController extends Controller
 		                $sheet->setCellValue('B'.$fila, getEstadoFomope($fomope->color_estado)); 
 		                $sheet->setCellValue('C'.$fila, $fomope->usuario_name); 
 		                $sheet->setCellValue('D'.$fila, $fomope->unidad); 
-		                $sheet->setCellValue('E'.$fila, $fomope->); 
+		                $sheet->setCellValue('E'.$fila, $fomope->rfc); 
 		                $sheet->setCellValue('F'.$fila, $fomope->curp);
 		                $sheet->setCellValue('G'.$fila, $fomope->apellido_1);
-		                $sheet->setCellValue('H'.$fila, $fomope->rfc);
-		                $sheet->setCellValue('I'.$fila, $fomope->apellido_1);
-		                $sheet->setCellValue('J'.$fila, $fomope->apellido_2);
-		                $sheet->setCellValue('K'.$fila, $fomope->nombre);
+		                $sheet->setCellValue('H'.$fila, $fomope->apellido_2);
+		                $sheet->setCellValue('I'.$fila, $fomope->nombre);
+		                $sheet->setCellValue('J'.$fila, $fomope->fechaIngreso);
+		                $sheet->setCellValue('K'.$fila, $fomope->oficioEntrega);
 		                $sheet->setCellValue('L'.$fila, $fomope->tipoEntrega);
 		                $sheet->setCellValue('M'.$fila, $fomope->tipoDeAccion);
 		                $sheet->setCellValue('N'.$fila, $fomope->justificacionRechazo);
