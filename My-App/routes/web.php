@@ -48,6 +48,7 @@ Route::get('DDSCH/blancoDDSCH', [DDSCHController::class, 'blancoDDSCH'])-> name(
 Route::post('DDSCH/blancoDDSCH', [DDSCHController::class, 'EnviarFomope'])-> name('EnviarFomope');
 Route::post('DDSCH/agregarNewFomope', [DDSCHController::class, 'agregarNewFomope'])-> name('agregarNewFomope');
 Route::post('DDSCH/rechazarFomope', [DDSCHController::class, 'rechazarFomope'])-> name('rechazarFomope');
+Route::get('DDSCH/verdeDDSCH', [DDSCHController::class, 'verdeDDSCH'])-> name('verdeDDSCH');
 
 Route::get('General/consultaEstado', [GeneralController::class, 'consultaEstado'])-> name('General.consultaEstado');
 Route::post('General/reporteBusqueda', [GeneralController::class, 'reporteBusqueda'])-> name('General.reporteBusqueda');
@@ -61,7 +62,6 @@ Route::get('Serch/Crfc', 'GeneralController@resultadosC_rfc')->name('Serch.Crfc'
 //****************************** Guardar documento en el sistema */
 Route::get('guardar/doc', 'GeneralController@guardarDocView')->name('guardar.doc.view');
 Route::post('guardar/doc', 'GeneralController@guardarDoc')->name('guardar.doc');
-
 
 
 Route::get('DSPO/autorizaDSPO', [DSPOController::class, 'autorizaDSPO'])-> name('DSPO.autorizaDSPO');

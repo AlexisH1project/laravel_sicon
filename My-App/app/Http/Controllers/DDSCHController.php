@@ -22,6 +22,10 @@ class DDSCHController extends Controller
         return view('DDSCH.capDDSCH');
     }
 
+    public function verdeDDSCH(){
+        return view('DDSCH.verdeDDSCH');
+    }
+
     public function actualizarFecha(){
         return view('DDSCH.actualizarFecha');
     }
