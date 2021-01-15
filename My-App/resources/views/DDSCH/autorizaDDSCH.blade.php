@@ -258,7 +258,7 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'verde')->g
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"verde")==0)
-              <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Capturar</button>
+              <button type="button" class="btn btn-outline-secondary" onclick="location.href='{{ route('verdeDDSCH') }}'" id="" >Capturar</button>
     @endif                         
     </td>
 </tr>
