@@ -139,6 +139,19 @@ class GeneralController extends Controller
         }
     }
 
+    public function resultados_unidad(Request $request){
+        $term = $request->get('term');
+        $resultado = DB::table('ct_unidades')->select('*')->where('descripcion', 'LIKE', '%'.$term.'%')->get();
+        $contador = 0;
+        $data = [];
+        foreach ($resultado as $registro) {
+            $data[$contador] = $registro->descripcion;
+            $contador++;
+        }
+        return $data;
+        exit;
+    }
+
 
     public function reporteBusqueda(Request $request){
         $fomy = $request->get('fomope');
@@ -153,7 +166,7 @@ class GeneralController extends Controller
 		                $sheet->setCellValue('B'.$fila, getEstadoFomope($fomope->color_estado)); 
 		                $sheet->setCellValue('C'.$fila, $fomope->usuario_name); 
 		                $sheet->setCellValue('D'.$fila, $fomope->unidad); 
-		                $sheet->setCellValue('E'.$fila, $fomope->); 
+		                $sheet->setCellValue('E'.$fila, $fomope->rfc); 
 		                $sheet->setCellValue('F'.$fila, $fomope->curp);
 		                $sheet->setCellValue('G'.$fila, $fomope->apellido_1);
 		                $sheet->setCellValue('H'.$fila, $fomope->rfc);
