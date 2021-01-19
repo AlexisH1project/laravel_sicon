@@ -15,6 +15,8 @@
     <script src="{{ asset('js/jquery-ui.min.js') }}" defer> </script>
     <script src="{{ asset('js/jquery-ui.js') }}" defer> </script>
 
+
+
     <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">
 

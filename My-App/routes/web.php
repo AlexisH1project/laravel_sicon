@@ -55,11 +55,12 @@ Route::get('General/consultaEstado', [GeneralController::class, 'consultaEstado'
 Route::post('General/reporteBusqueda', [GeneralController::class, 'reporteBusqueda'])-> name('General.reporteBusqueda');
 Route::get('General/filtroDescargar', [GeneralController::class, 'filtroDescargar'])-> name('General.filtroDescargar');
 Route::get('General/verList', [GeneralController::class, 'verList'])-> name('General.verList');
-// **************************** busqueda automatizada
+// **************************** busqueda automatizada (Autocompletar datos)
 Route::get('General/generarReporte', [GeneralController::class, 'generarReporte'])-> name('General.generarReporte');
 Route::get('General/guardarVista', 'GeneralController@indexGuardarVista')-> name('General.guardarVista');
 Route::get('Serch/rfc', 'GeneralController@resultados_rfc')->name('Serch.rfc');
 Route::get('Serch/Crfc', 'GeneralController@resultadosC_rfc')->name('Serch.Crfc');
+Route::get('Serch/unidad', 'GeneralController@resultados_unidad')->name('Serch.unidad');
 //****************************** Guardar documento en el sistema */
 Route::get('guardar/doc', 'GeneralController@guardarDocView')->name('guardar.doc.view');
 Route::post('guardar/doc', 'GeneralController@guardarDoc')->name('guardar.doc');

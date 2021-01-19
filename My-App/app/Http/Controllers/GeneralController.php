@@ -139,6 +139,19 @@ class GeneralController extends Controller
         }
     }
 
+    public function resultados_unidad(Request $request){
+        $term = $request->get('term');
+        $resultado = DB::table('ct_unidades')->select('*')->where('descripcion', 'LIKE', '%'.$term.'%')->get();
+        $contador = 0;
+        $data = [];
+        foreach ($resultado as $registro) {
+            $data[$contador] = $registro->descripcion;
+            $contador++;
+        }
+        return $data;
+        exit;
+    }
+
 
     public function reporteBusqueda(Request $request){
         $fomy = $request->get('fomope');

@@ -1,4 +1,6 @@
 @extends('layouts.adminlte')
+@extends('layouts.librerias')
+
 @section('content')
 
 <center>
@@ -235,7 +237,71 @@
                                               
 </form>
 </center>
+
 <script type="text/javascript">
+		var msg = '{{Session::get('alert')}}';
+		var exist = '{{Session::has('alert')}}';
+		if(exist){
+			alert(msg);
+    }
+    // autocompletamos la unidad 
+    $(document).ready(function () { 
+            $('#unidad').autocomplete({
+                source: function(request, response){
+                    $.ajax({
+						url:"{{ route('Serch.unidad')}}",
+                        dataType:'json',
+                        data:{
+                            term: request.term
+                        },
+                        success: function(data){
+                            response(data)
+                        }
+                    });
+                }
+            });
+        });
+
+// buacamos con el rfc los datos del empleado y acompletamos los apartados de nombre, apell, curp
+        $(document).ready(function () { 
+            $('#rfc').autocomplete({
+                source: function(request, response){
+                    $.ajax({
+						url:"{{ route('Serch.rfc')}}",
+                        dataType:'json',
+                        data:{
+                            term: request.term
+                        },
+                        success: function(data){
+                            response(data)
+                        }
+                    });
+                },select: function (event, ui){
+							$(this).val(ui.item.label);
+							var request = ui.item.value;
+							console.log(request);
+							//alert(buscarid);
+							$.ajax({
+								url: "{{ route('Serch.Crfc')}}",
+								dataType: 'json',
+								data: {
+									term2: request									
+								},
+								success: function(data){
+									var infEmpleado = eval(data);
+									console.log(data);
+								    //   console.log(infEmpleado.length);
+                                    //document.getElementById("rfc").value = infEmpleado[1] ;
+									document.getElementById("apellido1").value = infEmpleado[0].apellido1 ;
+									document.getElementById("apellido2").value = infEmpleado[0].apellido2 ;
+									document.getElementById("nombre").value = infEmpleado[0].nombre ;
+									document.getElementById("curp").value = infEmpleado[0].curp ;
+								}
+							});
+							return false;
+						}
+            });
+        });
 
 function enviarDatos(){
 				var formulario = document.captura1;
@@ -273,7 +339,7 @@ function enviarDatos(){
 				      	formulario.submit();
 		 }
 
-         function nuevoFomope(){
+  function nuevoFomope(){
 				var formulario = document.captura1;
 				formulario.action= './agregarNewFomope';
 
