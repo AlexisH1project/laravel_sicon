@@ -111,7 +111,7 @@
   @elseif(strcmp($busqueda->color_estado,"gris")==0)
             <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
   @elseif(strcmp($busqueda->color_estado,"amarillo0")==0)
-            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Ver</button>	
+  <button type="button" class="btn btn-outline-secondary" onclick="location.href='{{ route('verAmarillo0') }}'" id="fomopeBoton"  value="{{$busqueda->id_movimiento}}">Ver</button>
   @endif                         
   </td>
 </tr>
@@ -166,7 +166,7 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'amarillo0
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"amarillo0")==0)
-              <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Ver</button>
+    <button type="button" class="btn btn-outline-secondary" onclick="location.href='{{ route('verAmarillo0') }}'" id="fomopeBoton"  value="{{$busqueda->id_movimiento}}">Ver</button>
     @elseif(strcmp($busqueda->color_estado,"verde2")==0)
               <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Ver</button>
     @endif                         

@@ -49,6 +49,7 @@ Route::post('DDSCH/blancoDDSCH', [DDSCHController::class, 'EnviarFomope'])-> nam
 Route::post('DDSCH/agregarNewFomope', [DDSCHController::class, 'agregarNewFomope'])-> name('agregarNewFomope');
 Route::post('DDSCH/rechazarFomope', [DDSCHController::class, 'rechazarFomope'])-> name('rechazarFomope');
 Route::get('DDSCH/verdeDDSCH', [DDSCHController::class, 'verdeDDSCH'])-> name('verdeDDSCH');
+Route::post('DDSCH/verAmarillo0', [DDSCHController::class, 'verAmarillo0'])-> name('verAmarillo0');
 
 Route::get('General/consultaEstado', [GeneralController::class, 'consultaEstado'])-> name('General.consultaEstado');
 Route::post('General/reporteBusqueda', [GeneralController::class, 'reporteBusqueda'])-> name('General.reporteBusqueda');

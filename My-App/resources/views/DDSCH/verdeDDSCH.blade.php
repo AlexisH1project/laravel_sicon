@@ -90,7 +90,7 @@
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  ¿Estas seguro que la infirmacion a actualizar es la correcta?
+                                  ¿Estas seguro que la informacion a actualizar es la correcta?
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Regresar</button>

@@ -26,6 +26,13 @@ class DDSCHController extends Controller
         return view('DDSCH.verdeDDSCH');
     }
 
+    public function verAmarillo0(Request $request){
+        $fomopeId = $request->get('fomopeBoton');
+        echo $fomopeId;
+        $fomope = DB::table('fomope')->where('id_movimiento',$fomopeId)->get();
+       // return view('DDSCH.verAmarillo0', compact('fomope'));
+    }
+
     public function actualizarFecha(){
         return view('DDSCH.actualizarFecha');
     }
