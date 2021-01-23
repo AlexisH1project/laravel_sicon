@@ -9,6 +9,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Response;
 
 class GeneralController extends Controller
 {
@@ -35,9 +36,11 @@ class GeneralController extends Controller
         return view('General.generarReporte');
     }
 
-    public function verList(){
+    public function verList(Request $request){
+        $id_movimiento = $request->get('fomopeVer');
+        $Fomope = DB::table('fomope')->select('*')->where('id_movimiento',$id_movimiento)->first();
         $Documentos = DB::table('m1ct_documentos')->get();
-        return view('General.verList', compact('Documentos'));
+        return view('General.verList', compact('Documentos','Fomope'));
     }
 
     public function resultados_rfc(Request $request){
@@ -302,6 +305,51 @@ class GeneralController extends Controller
         
       
     }
+
+    public function downloadPDF(Request $request){
+        $Documento = $request->get('Documento'); 
+        $nombreDeArchivoDescarga = $request->get('nombreDoc'); 
+        $data2 = explode(".",$nombreDeArchivoDescarga);
+        $indice = count($data2);
+        $tipoArchivo = $data2[$indice-1];
+
+	if($tipoArchivo == "zip" || $tipoArchivo == "ZIP" || $tipoArchivo == "7z" || $tipoArchivo == "7Z"){
+		header("Content-type: application/zip");
+        header("Content-Transfer-Encoding: binary");
+		//readfile("./DOCUMENTOS/".$nombreDeArchivoDescarga); 
+		readfile('../storage/app/public/DOCUMENTOS_MOV/'.$Documento."/".$nombreDeArchivoDescarga); 
+        //readfile("./DOC_FOMOPES/".$nombreDeArchivoDescarga); 
+        //readfile($nombreDeArchivoDescarga); 
+       	//readfile("./DOCUMENTOS_RES/".$nombreDeArchivoDescarga); 
+        //readfile("./DOCUMENTOS_PDC/".$nombreDeArchivoDescarga); 
+
+	}else{
+		header("Content-type: application/PDF");
+		readfile('../storage/app/public/DOCUMENTOS_MOV/'.$Documento."/".$nombreDeArchivoDescarga); 
+	//	readfile("./DOCUMENTOS/".$nombreDeArchivoDescarga); 
+	//	readfile("./DOC_FOMOPES/".$nombreDeArchivoDescarga); 
+     //   readfile($nombreDeArchivoDescarga); 
+	//	readfile("./DOCUMENTOS_RES/".$nombreDeArchivoDescarga); 
+	//	readfile("./DOCUMENTOS_PDC/".$nombreDeArchivoDescarga); 
+
+	}
+       // $extencion = explode(".",$DocumentoAdescargar);
+
+        // project/public/download/info.pdf
+        /*
+        $file= public_path(). "../storage/app/public/DOCUMENTOS_MOV/".$DocumentoAdescargar;
+    
+        $headers = array(
+                  'Content-Type: application/pdf',
+                );
+    
+        return Response::download($file, 'filename.pdf', $headers);
+        */
+      return response()->download(storage_path(). "\app\public\DOCUMENTOS_MOV/".$Documento."/".$nombreDeArchivoDescarga);
+    
+    }
+
+
 
 
 

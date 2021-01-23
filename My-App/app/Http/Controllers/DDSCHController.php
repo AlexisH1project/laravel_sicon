@@ -27,10 +27,10 @@ class DDSCHController extends Controller
     }
 
     public function verAmarillo0(Request $request){
-        $fomopeId = $request->get('fomopeBoton');
+        $fomopeId = $request->get('NFomope');
         echo $fomopeId;
-        $fomope = DB::table('fomope')->where('id_movimiento',$fomopeId)->get();
-       // return view('DDSCH.verAmarillo0', compact('fomope'));
+       $fomope = DB::table('fomope')->where('id_movimiento',$fomopeId)->get();
+        return view('DDSCH.verAmarillo0', compact('fomope'));
     }
 
     public function actualizarFecha(){

@@ -111,7 +111,7 @@
   @elseif(strcmp($busqueda->color_estado,"gris")==0)
             <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
   @elseif(strcmp($busqueda->color_estado,"amarillo0")==0)
-  <button type="button" class="btn btn-outline-secondary" onclick="location.href='{{ route('verAmarillo0') }}'" id="fomopeBoton"  value="{{$busqueda->id_movimiento}}">Ver</button>
+ 
   @endif                         
   </td>
 </tr>
@@ -150,7 +150,7 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'amarillo0
 @foreach ($fomopeAutorizar as $busqueda)
 <tr>
   <td>
-    <form method="POST" action="{{route('autorizacionFomope')}}"> 
+    <form enctype="multipart/form-data" method="POST" action="{{route('autorizacionFomope')}}" name="captura1" id="captura1"> 
       @csrf
     <div class="custom-control custom-radio">
       <label><input type="checkbox" value="{{$busqueda->id_movimiento}}" name="fomope[]"></label>
@@ -166,9 +166,9 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'amarillo0
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"amarillo0")==0)
-    <button type="button" class="btn btn-outline-secondary" onclick="location.href='{{ route('verAmarillo0') }}'" id="fomopeBoton"  value="{{$busqueda->id_movimiento}}">Ver</button>
+    <input id="NFomope" name="NFomope" type="hidden" value="{{$busqueda->id_movimiento}}">
+    <input type="button" onclick="verFomopeAmarillo0();" class="btn btn-secondary" value="ver" name="botonAccion">
     @elseif(strcmp($busqueda->color_estado,"verde2")==0)
-              <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Ver</button>
     @endif                         
     </td>
 </tr>
@@ -267,5 +267,13 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'verde')->g
     </table>
   </div>
 
+  <script type="text/javascript">
+     function verFomopeAmarillo0(){
+				var formulario = document.captura1;
+        formulario.action= './verAmarillo0';
+				    var a = $("#NFomope").val(); 
+				      	formulario.submit();
+			}
 
+</script>
 @endsection

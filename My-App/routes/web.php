@@ -54,7 +54,9 @@ Route::post('DDSCH/verAmarillo0', [DDSCHController::class, 'verAmarillo0'])-> na
 Route::get('General/consultaEstado', [GeneralController::class, 'consultaEstado'])-> name('General.consultaEstado');
 Route::post('General/reporteBusqueda', [GeneralController::class, 'reporteBusqueda'])-> name('General.reporteBusqueda');
 Route::get('General/filtroDescargar', [GeneralController::class, 'filtroDescargar'])-> name('General.filtroDescargar');
-Route::get('General/verList', [GeneralController::class, 'verList'])-> name('General.verList');
+Route::post('General/verList', [GeneralController::class, 'verList'])-> name('General.verList');
+Route::post('General/downloadPDF', [GeneralController::class, 'downloadPDF'])-> name('General.downloadPDF');
+
 // **************************** busqueda automatizada (Autocompletar datos)
 Route::get('General/generarReporte', [GeneralController::class, 'generarReporte'])-> name('General.generarReporte');
 Route::get('General/guardarVista', 'GeneralController@indexGuardarVista')-> name('General.guardarVista');

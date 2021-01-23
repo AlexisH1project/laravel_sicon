@@ -124,7 +124,11 @@
 	<td>{{$busqueda->fechaAutorizacion}}</td>
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
-    <button type="button" onclick="location.href='{{ route('General.verList') }}'" class="btn-secondary" value='Ver lista de Doc.'>Ver lista de Doc.</button>
+    <form action = "{{ route('General.verList') }}" method="POST">
+        @csrf
+        <input type="hidden" name="fomopeVer" value="{{$busqueda->id_movimiento}}">
+        <input type="submit" class='btn-secondary' value ="Ver lista de Doc.">
+    </form>
                          
   </td>
 </tr>

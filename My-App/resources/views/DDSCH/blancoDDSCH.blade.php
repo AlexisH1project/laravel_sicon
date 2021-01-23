@@ -262,7 +262,7 @@
             });
         });
 
-// buacamos con el rfc los datos del empleado y acompletamos los apartados de nombre, apell, curp
+// buscamos con el rfc los datos del empleado y acompletamos los apartados de nombre, apell, curp
         $(document).ready(function () { 
             $('#rfc').autocomplete({
                 source: function(request, response){
