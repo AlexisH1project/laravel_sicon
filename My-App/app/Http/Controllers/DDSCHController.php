@@ -28,17 +28,15 @@ class DDSCHController extends Controller
 
     public function verAmarillo0(Request $request){
         $fomopeId = $request->get('NFomope');
-        echo $fomopeId;
-       $fomope = DB::table('fomope')->where('id_movimiento',$fomopeId)->get();
-        return view('DDSCH.verAmarillo0', compact('fomope'));
+        $usuarios = DB::table('users')->get();
+       $fomope = DB::table('fomope')->where('id_movimiento',$fomopeId)->first();
+        return view('DDSCH.verAmarillo0', compact('fomope', 'usuarios'));
     }
 
     public function actualizarFecha(){
         return view('DDSCH.actualizarFecha');
     }
-    public function guardarVistaEventuales(){
-        return view('DDSCH.guardarVistaEventuales');
-    }
+
     public function qrtxt(){
         return view('DDSCH.qrtxt');
     }

@@ -3,6 +3,12 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
+
+@if(!empty(Auth::user()->id_rol)){
+
+@php
+   updateQna(); //Esta funcion esta en myhelper.php se encarga de actualizar las quincenas
+@endphp
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -59,7 +65,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <i class="fas fa-power-off"></i> CERRAR SESIÓN
         </a>
       </li>
-      
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -272,3 +277,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 </body>
 </html>
+
+@else 
+<script>window.location = "/logout";</script>
+@endif
+?>

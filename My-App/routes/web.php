@@ -72,6 +72,14 @@ Route::get('DSPO/autorizaDSPO', [DSPOController::class, 'autorizaDSPO'])-> name(
 Route::get('DSPO/capDSPO', [DSPOController::class, 'capDSPO'])-> name('DSPO.capDSPO');
 Route::get('DSPO/correosUR', [DSPOController::class, 'correosUR'])-> name('DSPO.correosUR');
 Route::get('DSPO/generarReportePC', [DSPOController::class, 'generarReportePC'])-> name('DSPO.generarReportePC');
+Route::post('DSPO/form_FOMOPE', [DSPOController::class, 'form_FOMOPE'])-> name('DSPO.form_FOMOPE');
+Route::post('DSPO/form_FOMOPEAnalista', [DSPOController::class, 'form_FOMOPEAnalista'])-> name('DSPO.form_FOMOPEAnalista');
+Route::post('DSPO/autorizarNomina', [DSPOController::class, 'autorizarNomina'])-> name('DSPO.autorizarNomina');
+Route::post('DSPO/editarAnalista', [DSPOController::class, 'editarAnalista'])-> name('DSPO.editarAnalista');
+Route::post('DSPO/agregar_FOMOPE', [DSPOController::class, 'agregar_FOMOPE'])-> name('DSPO.agregar_FOMOPE');
+Route::post('DSPO/aceptarFomope', [DSPOController::class, 'aceptarFomope'])-> name('DSPO.aceptarFomope');
+Route::post('DSPO/observacion', [DSPOController::class, 'observacion'])-> name('DSPO.observacion');
+
 
 Route::get('DIPSP/autorizaDIPSP', [DIPSPController::class, 'autorizaDIPSP'])-> name('DIPSP.autorizaDIPSP');
 

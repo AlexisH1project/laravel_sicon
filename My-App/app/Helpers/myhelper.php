@@ -1,6 +1,8 @@
 <?php
 
 use illuminate\http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 function getEstadoFomope($request){
     $estadoF=$request; 
@@ -106,4 +108,22 @@ function buscaArchivoDoc_Mov($rfc, $documento, $apellido_1, $apellido_2, $nombre
 
                     return $nombreAdescargar;
 
+}
+
+function updateQna(){
+    $mytime = Carbon::now();
+    $mytime->setTimezone('GMT-6'); 
+    $fechaSistema = DB::table('m1ct_fechasnomina')->where('estadoActual','abierta')->first();
+    
+     $finaliza =$fechaSistema->fechaFunidad;
+    if( strtotime($mytime->toDateString()) > strtotime($fechaSistema->fechaFanalista)){
+        if($fechaSistema->id_qna != 24){
+           $newQna=  $fechaSistema->id_qna + 1;
+        }else{
+            $newQna= 1;
+        }
+    
+    $sqlCerrar = DB::table('m1ct_fechasnomina')->where('id_qna', $fechaSistema->id_qna)->update(['estadoActual' => 'cerrada']);
+    $sqlAbrir = DB::table('m1ct_fechasnomina')->where('id_qna', $newQna)->update(['estadoActual' => 'abierta']);
+   }
 }

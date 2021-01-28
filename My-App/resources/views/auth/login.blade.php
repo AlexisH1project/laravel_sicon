@@ -1,5 +1,7 @@
 @extends('layouts.appLog')
-
+@if(!empty(Auth::user()->id_rol))
+<script>window.location = "/home";</script>
+@else
 @section('content')
         <div class=" container">
             <div class="row">
@@ -59,3 +61,4 @@
             </div>
         </div>
 @endsection
+@endif

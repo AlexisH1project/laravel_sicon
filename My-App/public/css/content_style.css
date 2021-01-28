@@ -7,6 +7,16 @@
     background-color: #921928 !important;
     
   }
+
+  .modal-header, h4, .close {
+    background-color: #5cb85c;
+    color:white !important;
+    text-align: center;
+    font-size: 30px;
+  }
+  .modal-footer {
+    background-color: #f9f9f9;
+  }
   
   
   .btn-sicon {background-image: linear-gradient(to right, #e52d27 0%,#921928  51%, #e52d27  100%)}
