@@ -5,7 +5,8 @@
   <center>
 		  	
     <div class="col-md-8 col-md-offset-8">
-     <form name="captura1" action="./Controller/autorizarAmarillo0.php" method="POST"> 
+     <form name="captura1" action="{{ route('DDSCH.autorizarAmarillo0') }}" method="POST"> 
+      @csrf
       <div class="form-row">
         <input type="text" class="form-control" id="idFom" name="idFom" value="{{$fomope->id_movimiento}}" style="display:none">
       </div>
@@ -150,7 +151,8 @@
           <br>
       
     </form>  
-    <form name="captura2" action="./Controller/rechazoAmarillo0.php" method="POST">
+    <form name="captura2" action="{{ route('DDSCH.rechazoAmarillo0') }}" method="POST">
+      @csrf
       <div class="form-row">
         <input type="text" class="form-control" id="userName" name="userName" value="{{Auth::user()->usuario}}" style="display:none">
       </div>

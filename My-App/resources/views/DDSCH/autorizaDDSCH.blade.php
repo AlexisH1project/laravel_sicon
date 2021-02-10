@@ -92,6 +92,7 @@
       <tbody>
 
 @foreach ($fomope as $busqueda)
+<input id="NFomope" name="NFomope" type="hidden" value="{{$busqueda->id_movimiento}}">
 <tr>
   <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
 	<td>{{$busqueda->unidad}}</td>
@@ -103,13 +104,13 @@
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
 	@if(strcmp($busqueda->color_estado,"negro")==0)
-            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
+  <input type="button" onclick="negroEditar();" class="btn btn-secondary" value="Editar" name="botonAccion">
   @elseif(strcmp($busqueda->color_estado,"verde2")==0)
-            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Ver</button>
+  <input type="button" onclick="verVerde2();" class="btn btn-secondary" value="Ver" name="botonAccion">
   @elseif(strcmp($busqueda->color_estado,"verde")==0)
-            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Capturar</button>
+  <input type="button" onclick="verVerde();" class="btn btn-secondary" value="Capturar" name="botonAccion">
   @elseif(strcmp($busqueda->color_estado,"gris")==0)
-            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
+  <input type="button" onclick="grisEditar();" class="btn btn-secondary" value="Editar" name="botonAccion">
   @elseif(strcmp($busqueda->color_estado,"amarillo0")==0)
  
   @endif                         
@@ -153,6 +154,7 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'amarillo0
     <form enctype="multipart/form-data" method="POST" action="{{route('autorizacionFomope')}}" name="captura1" id="captura1"> 
       @csrf
     <div class="custom-control custom-radio">
+      <input id="NFomope" name="NFomope" type="hidden" value="{{$busqueda->id_movimiento}}">
       <label><input type="checkbox" value="{{$busqueda->id_movimiento}}" name="fomope[]"></label>
     </div>
   </td>
@@ -165,10 +167,10 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'amarillo0
 	<td>{{$busqueda->fechaAutorizacion}}</td>
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
-    @if(strcmp($busqueda->color_estado,"amarillo0")==0)
-    <input id="NFomope" name="NFomope" type="hidden" value="{{$busqueda->id_movimiento}}">
-    <input type="button" onclick="verFomopeAmarillo0();" class="btn btn-secondary" value="ver" name="botonAccion">
+    @if(strcmp($busqueda->color_estado,"amarillo0")==0)  
+    <input type="button" onclick="verAmarillo0();" class="btn btn-secondary" value="ver" name="botonAccion">
     @elseif(strcmp($busqueda->color_estado,"verde2")==0)
+    <input type="button" onclick="verVerde2();" class="btn btn-secondary" value="ver" name="botonAccion">
     @endif                         
     </td>
 </tr>
@@ -202,6 +204,7 @@ $fomopeRechazados = DB::table('fomope')->where('color_estado', 'like', 'gris')->
       <tbody>
 
 @foreach ($fomopeRechazados as $busqueda)
+<input id="NFomope" name="NFomope" type="hidden" value="{{$busqueda->id_movimiento}}">
 <tr>
     <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
 	<td>{{$busqueda->unidad}}</td>
@@ -213,11 +216,11 @@ $fomopeRechazados = DB::table('fomope')->where('color_estado', 'like', 'gris')->
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"gris")==0)
-              <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
+    <input type="button" onclick="grisEditar();" class="btn btn-secondary" value="Editar" name="botonAccion">
     @elseif(strcmp($busqueda->color_estado,"negro")==0)
-              <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
-    @endif                         
-    </td>
+    <input type="button" onclick="negroEditar();" class="btn btn-secondary" value="Editar" name="botonAccion">
+    @endif
+  </td>
 </tr>
 @endforeach    
       </tbody>
@@ -247,6 +250,7 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'verde')->g
       <tbody>
 
 @foreach ($fomopeEscanear as $busqueda)
+<input id="NFomope" name="NFomope" type="hidden" value="{{$busqueda->id_movimiento}}">
 <tr>
     <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
 	<td>{{$busqueda->unidad}}</td>
@@ -258,7 +262,7 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'verde')->g
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"verde")==0)
-              <button type="button" class="btn btn-outline-secondary" onclick="location.href='{{ route('verdeDDSCH') }}'" id="" >Capturar</button>
+    <input type="button" onclick="verVerde();" class="btn btn-secondary" value="Capturar" name="botonAccion">
     @endif                         
     </td>
 </tr>
@@ -268,12 +272,52 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'verde')->g
   </div>
 
   <script type="text/javascript">
-     function verFomopeAmarillo0(){
+     function verAmarillo0(){
 				var formulario = document.captura1;
         formulario.action= './verAmarillo0';
 				    var a = $("#NFomope").val(); 
 				      	formulario.submit();
 			}
+
+  function verVerde(idmov){
+          var formulario = document.captura1;
+              formulario.action= './verVerde';
+        var a = $("#NFomope").val();
+              formulario.submit();
+    }
+
+  
+  
+  function negroEditar(){
+          var formulario = document.captura1;
+      formulario.action= './negroEditar';
+          var a = $("#NFomope").val(); 
+              formulario.submit();
+
+    }
+
+
+  
+  
+  function grisEditar(){
+          var formulario = document.captura1;
+      formulario.action= './grisEditar';
+          var a = $("#NFomope").val(); 
+              formulario.submit();
+
+    }
+
+  
+  
+  function verVerde2(){
+          var formulario = document.captura1;
+      formulario.action= './verVerde2';
+          var a = $("#NFomope").val(); 
+              formulario.submit();
+
+    }
+
+                       
 
 </script>
 @endsection

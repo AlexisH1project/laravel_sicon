@@ -48,8 +48,16 @@ Route::get('DDSCH/blancoDDSCH', [DDSCHController::class, 'blancoDDSCH'])-> name(
 Route::post('DDSCH/blancoDDSCH', [DDSCHController::class, 'EnviarFomope'])-> name('EnviarFomope');
 Route::post('DDSCH/agregarNewFomope', [DDSCHController::class, 'agregarNewFomope'])-> name('agregarNewFomope');
 Route::post('DDSCH/rechazarFomope', [DDSCHController::class, 'rechazarFomope'])-> name('rechazarFomope');
-Route::get('DDSCH/verdeDDSCH', [DDSCHController::class, 'verdeDDSCH'])-> name('verdeDDSCH');
-Route::post('DDSCH/verAmarillo0', [DDSCHController::class, 'verAmarillo0'])-> name('verAmarillo0');
+Route::post('DDSCH/verVerde', [DDSCHController::class, 'verVerde'])-> name('DDSCH.verdeDDSCH');
+Route::post('DDSCH/verAmarillo0', [DDSCHController::class, 'verAmarillo0'])-> name('DDSCH.verAmarillo0');
+Route::post('DDSCH/verVerde2', [DDSCHController::class, 'verVerde2'])-> name('DDSCH.verVerde2');
+Route::post('DDSCH/negroEditar', [DDSCHController::class, 'negroEditar'])-> name('DDSCH.negroEditar');
+Route::post('DDSCH/grisEditar', [DDSCHController::class, 'grisEditar'])-> name('DDSCH.grisEditar');
+Route::post('DDSCH/autorizarAmarillo0', [DDSCHController::class, 'autorizarAmarillo0'])-> name('DDSCH.autorizarAmarillo0');
+Route::post('DDSCH/rechazoAmarillo0', [DDSCHController::class, 'rechazoAmarillo0'])-> name('DDSCH.rechazoAmarillo0');
+Route::post('DDSCH/updateNegro', [DDSCHController::class, 'updateNegro'])-> name('DDSCH.updateNegro');
+Route::post('DDSCH/eliminarFomope', [DDSCHController::class, 'eliminarFomope'])-> name('DDSCH.eliminarFomope');
+Route::post('DDSCH/updateVerde', [DDSCHController::class, 'updateVerde'])-> name('DDSCH.updateVerde');
 
 Route::get('General/consultaEstado', [GeneralController::class, 'consultaEstado'])-> name('General.consultaEstado');
 Route::post('General/reporteBusqueda', [GeneralController::class, 'reporteBusqueda'])-> name('General.reporteBusqueda');
@@ -69,6 +77,8 @@ Route::post('guardar/doc', 'GeneralController@guardarDoc')->name('guardar.doc');
 
 
 Route::get('DSPO/autorizaDSPO', [DSPOController::class, 'autorizaDSPO'])-> name('DSPO.autorizaDSPO');
+Route::post('DSPO/Consulta', [DSPOController::class, 'getFomopeTableDSPO'])-> name('DSPO.getFomopeTable');
+Route::post('DSPO/autorizacionFomope', [DSPOController::class, 'autorizacionFomope'])-> name('DSPO.autorizacionFomope');
 Route::get('DSPO/capDSPO', [DSPOController::class, 'capDSPO'])-> name('DSPO.capDSPO');
 Route::get('DSPO/correosUR', [DSPOController::class, 'correosUR'])-> name('DSPO.correosUR');
 Route::get('DSPO/generarReportePC', [DSPOController::class, 'generarReportePC'])-> name('DSPO.generarReportePC');
@@ -79,7 +89,7 @@ Route::post('DSPO/editarAnalista', [DSPOController::class, 'editarAnalista'])-> 
 Route::post('DSPO/agregar_FOMOPE', [DSPOController::class, 'agregar_FOMOPE'])-> name('DSPO.agregar_FOMOPE');
 Route::post('DSPO/aceptarFomope', [DSPOController::class, 'aceptarFomope'])-> name('DSPO.aceptarFomope');
 Route::post('DSPO/observacion', [DSPOController::class, 'observacion'])-> name('DSPO.observacion');
-
+Route::post('DSPO/eliminarFomope', [DSPOController::class, 'eliminarFomope'])-> name('DSPO.eliminarFomope');
 
 Route::get('DIPSP/autorizaDIPSP', [DIPSPController::class, 'autorizaDIPSP'])-> name('DIPSP.autorizaDIPSP');
 

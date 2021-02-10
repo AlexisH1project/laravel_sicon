@@ -3,6 +3,7 @@
 use illuminate\http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 function getEstadoFomope($request){
     $estadoF=$request; 
@@ -126,4 +127,27 @@ function updateQna(){
     $sqlCerrar = DB::table('m1ct_fechasnomina')->where('id_qna', $fechaSistema->id_qna)->update(['estadoActual' => 'cerrada']);
     $sqlAbrir = DB::table('m1ct_fechasnomina')->where('id_qna', $newQna)->update(['estadoActual' => 'abierta']);
    }
+}
+
+
+function insertarHistorial($id_mov){
+    $mytime = Carbon::now();
+    $mytime->setTimezone('GMT-6'); 
+
+    $insert = DB::insert(
+
+        'insert into historial (id_movimiento,usuario,fechaMovimiento,horaMovimiento) values (?,?,?,?)',
+        [$id_mov, Auth::user()->usuario, $mytime->toDateString(),  $mytime->toTimeString()]
+    );
+
+}
+
+function insertarRechazo($id_mov, $motivoR){
+    $mytime = Carbon::now();
+    $mytime->setTimezone('GMT-6'); 
+
+    $insert = DB::insert(
+        'insert into rechazos (id_movimiento,justificacionRechazo,usuario,fechaRechazo) values (?,?,?,?)',                
+        [$id_mov,$motivoR, Auth::user()->usuario, $mytime->toDateString()]
+    );    
 }

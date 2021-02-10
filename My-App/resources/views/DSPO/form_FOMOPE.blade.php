@@ -76,8 +76,13 @@
               <br>
   
           
-              <form method="post" name="ffomope" action="{{ route('DSPO.agregar_FOMOPE') }}"> 
+              
+              
+
+
+              <form enctype="multipart/form-data" method="POST" action="{{route('DSPO.agregar_FOMOPE')}}" name="captura1" id="captura1"> 
                 @csrf
+              
                   <div class="form-row">
                           <div class="modal fade" id="exampleModalR" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -232,9 +237,9 @@
                       </div>
                           <div class="form-group col-md-12">
                                   <button type="button" class="btn btn-primary" name="capturaF" id="capturaF" data-toggle="modal" data-target="#exampleModal1">Capturar Fomope </button>
-                              
+                                 
                               <input type="submit" class="btn btn-primary" id="bandejaEntrada" name="accionB" style="display: none;"  value="bandeja principal">
-                               
+                              <input type="text" class="form-control" id="noFomope" name="noFomope" value="{{$fomope->id_movimiento}}" style="display:none">
                                    
   
                           </div>

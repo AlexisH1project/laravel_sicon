@@ -5,9 +5,10 @@
 
 @section('content')
 <div class="bgsand" style="background: #F2EBD7">
-    <form method="POST" action="{{route('getFomopeTable')}}"> 
+    <form method="POST" action="{{route('DSPO.getFomopeTable')}}"> 
         @csrf
-        <input type='hidden' name='redirect' class='btn btn btn-success text-white bord' value='autorizaDDSCH'>
+        {{-- Este valor "redirect" debe de cambiar dependiendo de que usuario estas generando  --}}
+        <input type='hidden' name='redirect' class='btn btn btn-success text-white bord' value='autorizaDSPO'>
         <div class="plantilla-inputv text-center">
             <div class="form-row">
                 <div class="col">
@@ -99,11 +100,11 @@
     @if(strcmp($busqueda->color_estado,"amarillo")==0)
     <button type="button" class="btn btn-outline-secondary" onclick="mandarFormFomope('{{$busqueda->id_movimiento}}')" id="" >Capturar</button>
     @elseif(strcmp($busqueda->color_estado,"cafe")==0)
-    <button type="button" class="btn btn-outline-secondary" onclick="mandarFormFomopeAnalista()" id="" >Autorizar</button>
+    <button type="button" class="btn btn-outline-secondary" onclick="mandarFormFomopeAnalista()" id="" >Autorización</button>
     @elseif(strcmp($busqueda->color_estado,"negro1")==0)
     <button type="button" class="btn btn-outline-secondary" onclick="mandarEditarAnalista()" id="" >Editar</button>
     @elseif(strcmp($busqueda->color_estado,"rosa")==0)
-    <button type="button" class="btn btn-outline-secondary" onclick="mandarAutorizarNomina()" id="" >Nomina</button>
+    <button type="button" class="btn btn-outline-secondary" data-toggle="modal"  data-target="#exampleModalN" >Nomina</button>
     @endif                               
     </td>
 </tr>
@@ -142,7 +143,7 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'cafe')->g
 @foreach ($fomopeAutorizar as $busqueda)
 <tr>
   <td>
-    <form enctype="multipart/form-data" method="POST" action="{{route('autorizacionFomope')}}" name="captura1" id="captura1"> 
+    <form enctype="multipart/form-data" method="POST" action="{{route('DSPO.autorizacionFomope')}}" name="captura1" id="captura1"> 
       @csrf
     <div class="custom-control custom-radio">
       <label><input type="checkbox" value="{{$busqueda->id_movimiento}}" name="fomope[]"></label>
@@ -168,8 +169,10 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'cafe')->g
       </tbody>
     </table>
   </div>
-  <button type="submit" name="" class="btn btn-outline-info tamanio-button">Por capturar</button> 
+  <button type="submit" name="" class="btn btn-outline-info tamanio-button">Autorizar</button> 
 </form> 
+
+
   <div class="card bg-secondary text-white">
     <div class="card-body plantilla-inputg text-center"><h2>Por capturar</h2></div>
     </div>
@@ -205,7 +208,7 @@ $fomopeCapturar = DB::table('fomope')->where('color_estado', 'like', 'amarillo')
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"amarillo")==0)
-    <button type="button" class="btn btn-outline-secondary" onclick="mandarFormFomope('{{$busqueda->id_movimiento}}')" id="" >Autorización</button>                     
+    <button type="button" class="btn btn-outline-secondary" onclick="mandarFormFomope('{{$busqueda->id_movimiento}}')" id="" >Capturar</button>                     
   @endif  
   </td>
 </tr>
@@ -248,7 +251,7 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'negro1')->
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"negro1")==0)
-    <button type="button" class="btn btn-outline-secondary" onclick="mandarEditarAnalista()" id="" >Autorización</button>
+    <button type="button" class="btn btn-outline-secondary" onclick="mandarEditarAnalista('{{$busqueda->id_movimiento}}')" id="" >Editar</button>
     @endif                         
     </td>
 </tr>
@@ -291,7 +294,7 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'negro1')->
       <td>{{$busqueda->fechaCaptura}}</td>
       <td>
         @if(strcmp($busqueda->color_estado,"rosa")==0)
-    <button type="button" class="btn btn-outline-secondary" onclick="mandarAutorizarNomina()" id="" >Autorización</button>
+        <button type="button" class="btn btn-outline-secondary" data-toggle="modal"  data-target="#exampleModalN" >Nomina</button>
     @endif                        
         </td>
     </tr>
@@ -316,7 +319,9 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'negro1')->
         formulario.action= './form_FOMOPEAnalista';
 				    var a = $("#NFomope").val(); 
 				      	formulario.submit();
+
 			}
+
 
     
     
@@ -325,6 +330,7 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'negro1')->
         formulario.action= './editarAnalista';
 				    var a = $("#NFomope").val(); 
 				      	formulario.submit();
+
 			}
 
     
@@ -334,28 +340,35 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'negro1')->
         formulario.action= './autorizarNomina';
 				    var a = $("#NFomope").val(); 
 				      	formulario.submit();
+
 			}
 
                          
 
 </script>
-
-@if(!empty($aceptarFomopeV))
-@if($aceptarFomopeV=="true")
-<script language="javascript">  alert('Fomope Aceptado Correctamente');</script>   
-@else
-<script language="javascript">  alert('Hubo un error aceptando el fomope');</script>  
-@endif
-@endif
-
-@if(!empty($banderaRechazo))
-@if($banderaRechazo=="true")
-<script language="javascript">  alert('El rechazo fue registrado');</script>   
-@else
-<script language="javascript">  alert('Hubo un problema rechazando el fomope');</script>  
-@endif
-@endif
-
-
-
 @endsection
+
+<div class="modal fade" id="exampleModalN" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post">
+      <div class="modal-body">
+        ¿Quieres mandar a lotear el fomope?
+      </div>
+      <div class="form-row">
+      <input type="text" class="form-control" id="idDatosA" name="idDatosA" style="display:none">
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO, Regresar</button>
+         <input type="button" id="autorizarNsi" value="SI, Guardar Fecha actual" class="btn btn-primary" onclick="mandarAutorizarNomina()">
+      </div>
+  </form>
+    </div>
+  </div>
+</div>

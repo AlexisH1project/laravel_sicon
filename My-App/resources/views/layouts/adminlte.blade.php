@@ -244,7 +244,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   </div>
   <!-- /.content-wrapper -->
+   <!-- Sistema de mensajes -->
+{{-- cada que se regresa a esta pagina despues de una consulta, a veces regresa con un mensaje que la pagina imprimira --}}
+@if(!empty($mensaje))
 
+@if(strcmp($mensaje,"Se detecto incosistencia en las fechas")==0)
+<script language="javascript">  alert('Se detecto incosistencia en las fechas');</script>  
+
+@elseif(strcmp($mensaje,"el fomope fue capturado")==0)
+<script language="javascript">  alert('el fomope fue capturado');</script>
+
+@elseif(strcmp($mensaje,"el fomope fue actualizado")==0)
+<script language="javascript">  alert('el fomope fue actualizado');</script> 
+
+@elseif(strcmp($mensaje,"Se elimino el fomope")==0)
+<script language="javascript">  alert('Se elimino el fomope');</script> 
+ 
+@elseif($mensaje=="El rechazo fue registrado")
+<script language="javascript">  alert('El rechazo fue registrado');</script>  
+
+@elseif($mensaje=="Hubo un problema rechazando el fomope")
+<script language="javascript">  alert('Hubo un problema rechazando el fomope');</script>  
+
+@elseif($mensaje=="Fomope Aceptado Correctamente")
+<script language="javascript">  alert('Fomope Aceptado Correctamente');</script>  
+
+@elseif($mensaje=="Hubo un error aceptando el fomope")
+<script language="javascript">  alert('Hubo un error aceptando el fomope');</script> 
+
+@elseif($mensaje=="La fecha no puede ser mayor a la actual")
+<script language="javascript">  alert('La fecha no puede ser mayor a la actual');</script> 
+@endif
+
+@endif
 
 
   <!-- Main Footer -->
@@ -281,4 +313,3 @@ scratch. This page gets rid of all links and provides the needed markup only.
 @else 
 <script>window.location = "/logout";</script>
 @endif
-?>
