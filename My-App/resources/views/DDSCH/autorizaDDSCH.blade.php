@@ -11,7 +11,7 @@
   </div>
 
 <div class="bgsand" style="background: #F2EBD7">
-    <form method="POST" action="{{route('getFomopeTable')}}"> 
+    <form method="POST" action="{{route('DDSCH.getFomopeTable')}}"> 
         @csrf
         <input type='hidden' name='redirect' class='btn btn btn-success text-white bord' value='autorizaDDSCH'>
         <div class="plantilla-inputv text-center">
@@ -92,7 +92,7 @@
       <tbody>
 
 @foreach ($fomope as $busqueda)
-<input id="NFomope" name="NFomope" type="hidden" value="{{$busqueda->id_movimiento}}">
+
 <tr>
   <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
 	<td>{{$busqueda->unidad}}</td>
@@ -104,13 +104,13 @@
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
 	@if(strcmp($busqueda->color_estado,"negro")==0)
-  <input type="button" onclick="negroEditar();" class="btn btn-secondary" value="Editar" name="botonAccion">
+  <input type="button" onclick="negroEditar({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Editar" name="botonAccion">
   @elseif(strcmp($busqueda->color_estado,"verde2")==0)
-  <input type="button" onclick="verVerde2();" class="btn btn-secondary" value="Ver" name="botonAccion">
+  <input type="button" onclick="verVerde2({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Ver" name="botonAccion">
   @elseif(strcmp($busqueda->color_estado,"verde")==0)
-  <input type="button" onclick="verVerde();" class="btn btn-secondary" value="Capturar" name="botonAccion">
+  <input type="button" onclick="verVerde({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Capturar" name="botonAccion">
   @elseif(strcmp($busqueda->color_estado,"gris")==0)
-  <input type="button" onclick="grisEditar();" class="btn btn-secondary" value="Editar" name="botonAccion">
+  <input type="button" onclick="grisEditar({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Editar" name="botonAccion">
   @elseif(strcmp($busqueda->color_estado,"amarillo0")==0)
  
   @endif                         
@@ -151,10 +151,10 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'amarillo0
 @foreach ($fomopeAutorizar as $busqueda)
 <tr>
   <td>
-    <form enctype="multipart/form-data" method="POST" action="{{route('autorizacionFomope')}}" name="captura1" id="captura1"> 
-      @csrf
+    <form enctype="multipart/form-data" method="get" action="" name="captura1" id="captura1"> 
+
     <div class="custom-control custom-radio">
-      <input id="NFomope" name="NFomope" type="hidden" value="{{$busqueda->id_movimiento}}">
+      <label><input type="checkbox" value="{{$busqueda->id_movimiento}}" name="radios"></label>
       <label><input type="checkbox" value="{{$busqueda->id_movimiento}}" name="fomope[]"></label>
     </div>
   </td>
@@ -168,9 +168,9 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'amarillo0
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"amarillo0")==0)  
-    <input type="button" onclick="verAmarillo0();" class="btn btn-secondary" value="ver" name="botonAccion">
+    <input type="button" onclick="verAmarillo0({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="ver" name="botonAccion">
     @elseif(strcmp($busqueda->color_estado,"verde2")==0)
-    <input type="button" onclick="verVerde2();" class="btn btn-secondary" value="ver" name="botonAccion">
+    <input type="button" onclick="verVerde2({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="ver" name="botonAccion">
     @endif                         
     </td>
 </tr>
@@ -178,7 +178,7 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'amarillo0
       </tbody>
     </table>
   </div>
-  <button type="submit" name="" class="btn btn-outline-info tamanio-button">Autorizar</button> 
+  <input type="button" onclick="obtenerRadioSeleccionado('captura1','radios');" class="btn btn-outline-secondary" value="Autorizar" name="botonAccion">
 </form> 
   <div class="card bg-secondary text-white">
     <div class="card-body plantilla-inputg text-center"><h2>Rechazados</h2></div>
@@ -216,9 +216,9 @@ $fomopeRechazados = DB::table('fomope')->where('color_estado', 'like', 'gris')->
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"gris")==0)
-    <input type="button" onclick="grisEditar();" class="btn btn-secondary" value="Editar" name="botonAccion">
+    <input type="button" onclick="grisEditar({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Editar" name="botonAccion">
     @elseif(strcmp($busqueda->color_estado,"negro")==0)
-    <input type="button" onclick="negroEditar();" class="btn btn-secondary" value="Editar" name="botonAccion">
+    <input type="button" onclick="negroEditar({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Editar" name="botonAccion">
     @endif
   </td>
 </tr>
@@ -262,7 +262,7 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'verde')->g
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"verde")==0)
-    <input type="button" onclick="verVerde();" class="btn btn-secondary" value="Capturar" name="botonAccion">
+    <input type="button" onclick="verVerde({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Capturar" name="botonAccion">
     @endif                         
     </td>
 </tr>
@@ -272,50 +272,66 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'verde')->g
   </div>
 
   <script type="text/javascript">
-     function verAmarillo0(){
+     function verAmarillo0(idMov){
 				var formulario = document.captura1;
-        formulario.action= './verAmarillo0';
-				    var a = $("#NFomope").val(); 
-				      	formulario.submit();
+        formulario.action=  './verAmarillo0/'.concat('', idMov);
+              	formulario.submit();
 			}
-
-  function verVerde(idmov){
+  function verVerde(idMov){
           var formulario = document.captura1;
-              formulario.action= './verVerde';
-        var a = $("#NFomope").val();
+              // formulario.action= './verVerde';
+              formulario.action=  './verVerde/'.concat('', idMov);
+      //  var a = $("#NFomope").val();
+
               formulario.submit();
     }
-
-  
-  
-  function negroEditar(){
+  function negroEditar(idMov){
           var formulario = document.captura1;
-      formulario.action= './negroEditar';
-          var a = $("#NFomope").val(); 
+
+     // formulario.action= './negroEditar';
+      formulario.action=  './negroEditar/'.concat('', idMov);
+         // var a = $("#NFomope").val(); 
               formulario.submit();
 
     }
-
-
-  
-  
-  function grisEditar(){
+  function grisEditar(idMov){
           var formulario = document.captura1;
-      formulario.action= './grisEditar';
-          var a = $("#NFomope").val(); 
+      //formulario.action= './grisEditar';
+      formulario.action=  './grisEditar/'.concat('', idMov);
+         // var a = $("#NFomope").val(); 
               formulario.submit();
 
     }
 
   
   
-  function verVerde2(){
+  function verVerde2(idMov){
           var formulario = document.captura1;
-      formulario.action= './verVerde2';
-          var a = $("#NFomope").val(); 
+      //formulario.action= './verVerde2';
+      formulario.action=  './verVerde2/'.concat('', idMov);
+         // var a = $("#NFomope").val(); 
               formulario.submit();
 
     }
+
+    function obtenerRadioSeleccionado(formulario, nombre){
+						var contador = 0;
+					     elementosSelectR = [];
+					     elementos = document.getElementById(formulario).elements;
+					     longitud = document.getElementById(formulario).length;
+					     for (var i = 0; i < longitud; i++){
+					         if(elementos[i].name == nombre && elementos[i].type == "checkbox" && elementos[i].checked == true){
+										elementosSelectR[contador]=elementos[i].value;
+										//alert(elementosSelectR[contador]);
+										contador++;
+					         }
+					     }
+					     if(contador > 0){
+							window.location.href = './../autorizacionDDSCH/'+elementosSelectR;
+
+					     }
+					     //return false;
+					} 
 
                        
 

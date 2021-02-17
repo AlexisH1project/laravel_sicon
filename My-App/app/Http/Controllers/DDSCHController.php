@@ -26,35 +26,40 @@ class DDSCHController extends Controller
         return view('DDSCH.capDDSCH');
     }
 
-    public function verVerde(){
-        return view('DDSCH.verVerde');
+    public function verVerde($fomopeId){
+
+        return view('DDSCH.verVerde', compact('fomopeId'));
     }
 
-    public function verVerde2(){
-        return view('DDSCH.verVerde2');
+    public function verVerde2($fomopeId){
+        $fomope = DB::table('fomope')->where('id_movimiento',$fomopeId)->first();
+        return view('DDSCH.verVerde2', compact('fomope'));
     }
 
-    public function negroEditar(Request $request){
+    public function negroEditar($fomopeId){
 
         $Documentos = DB::table('m1ct_documentos')->get();
-        $fomopeId = $request->get('NFomope');
         $usuarios = DB::table('users')->get();
         $fomope = DB::table('fomope')->where('id_movimiento',$fomopeId)->first();
      
        return view('DDSCH.negroEditar', compact('Documentos', 'usuarios', 'fomope'));
     }
 
-    public function grisEditar(){
-        return view('DDSCH.grisEditar');
+    public function grisEditar($fomopeId){
+        $Documentos = DB::table('m1ct_documentos')->get();
+        $usuarios = DB::table('users')->get();
+        $fomope = DB::table('fomope')->where('id_movimiento',$fomopeId)->first();
+        return view('DDSCH.grisEditar', compact('fomope','Documentos','usuarios'));
     }
 
 
 
-    public function verAmarillo0(Request $request){
-        $fomopeId = $request->get('NFomope');
+    public function verAmarillo0($fomopeId){
+        //$fomopeId = $request->get('NFomope');
         $usuarios = DB::table('users')->get();
        $fomope = DB::table('fomope')->where('id_movimiento',$fomopeId)->first();
         return view('DDSCH.verAmarillo0', compact('fomope', 'usuarios'));
+       
     }
 
     public function actualizarFecha(){
@@ -454,10 +459,11 @@ class DDSCHController extends Controller
                         }
     }
 
-    public function autorizacionFomope(Request $request){
+    public function autorizacionFomope($fomope){
     
-    $fomopeAutorizarId = $request->get('fomope');
-    $fomopesS = DB::table('fomope')->select('*')->whereIn('id_movimiento', $fomopeAutorizarId)->get();
+   // $fomopeAutorizarId = $request->get('fomope');
+   $data = explode(",",$fomope);
+    $fomopesS = DB::table('fomope')->select('*')->whereIn('id_movimiento', $data)->get();
     $mytime = Carbon::now();
     $mytime->setTimezone('GMT-6'); 
     $user_Fecha =$mytime->toDateString()." - ". Auth::user()->usuario;
@@ -599,7 +605,7 @@ if($request->hasFile('nameArchivo')){
     $extencion = explode(".",$fileName);
     $ext = $extencion[1];
     $concatenarNombreC = strtoupper($rfc)."_".$doc."_". $apellido1."_". $apellido2."_". $nombre."_".$fecha.$hora."_". $fomope->id_movimiento."_.".$ext; // strtoupper: lo pasa a mayuscula todo 
-    $path = $file->storeAs('public/DOCUMENTOS_MOV/'.$doc."/", $fileName); // Guarda documento en la carpetta correspondiente ./public/storage/app/DOCUEMTOS_MOV
+    $path = $file->storeAs('public/DOCUMENTOS_MOV/'.$doc.'/', $fileName); // Guarda documento en la carpetta correspondiente ./public/storage/app/DOCUEMTOS_MOV
     Storage::move($path, 'public/DOCUMENTOS_MOV/'.$doc.'/'.$concatenarNombreC);
  }
 
@@ -661,16 +667,18 @@ if($request->hasFile('nameArchivo')){
 		$ofEntregaUnidadAdd = $request->get('ofEntregaUnidad');
 		$ofEntregaSeg = $request->get('ofEntrega');
 		$motivoR = $request->get('comentarioR');
-		$dir_subida = './documentos';
+        $archivo = $request->get('nameArchivo');
 
         
-        $fomope = DB::table('fomope')->where('id_movimiento', $$id_Fom)->first();
+        $fomope = DB::table('fomope')->where('id_movimiento', $id_Fom)->first();
         $mytime = Carbon::now();
         $mytime->setTimezone('GMT-6'); 
         $user_Fecha =$mytime->toDateString()." - ". Auth::user()->usuario;
         $quincena = DB::table('m1ct_fechasnomina')->where('estadoActual','abierta')->value('id_qna');
         $Documentos = DB::table('m1ct_documentos')->get();
         $usuarios = DB::table('users')->get();
+        $hora = str_replace ( ":", '',$mytime->toTimeString()); 
+        $fecha = str_replace ( "-", '',$mytime->toDateString()); 
 
 
 
@@ -690,7 +698,16 @@ if($request->hasFile('nameArchivo')){
 
         if($fechaRLaboralesAdd<=$mytime->toDateString() AND $fechaEntregaUnidadAdd<=$mytime->toDateString()){
 
-        
+            if($request->hasFile('nameArchivo')){
+                $file = $request->file('nameArchivo');
+                $fileName = $request->nameArchivo->getClientOriginalName();  
+                $extencion = explode(".",$fileName);
+                $ext = $extencion[1];
+                $concatenarNombreC = strtoupper($fomope->rfc)."_DOC70_". $fomope->apellido_1."_". $fomope->apellido_2."_". $fomope->nombre."_".$fecha.$hora."_". $fomope->id_movimiento."_.".$ext; // strtoupper: lo pasa a mayuscula todo 
+                $path = $file->storeAs('public/DOCUMENTOS_MOV/doc70/', $fileName); // Guarda documento en la carpetta correspondiente ./public/storage/app/DOCUEMTOS_MOV
+                Storage::move($path, 'public/DOCUMENTOS_MOV/doc70/'.$concatenarNombreC);
+             }
+
         insertarHistorial($fomope->id_movimiento);
 
         $update = DB::update(
@@ -706,6 +723,46 @@ if($request->hasFile('nameArchivo')){
     }
 
 
+    }
+
+    public function autorizarVerde2(Request $request){
+        $fomopeId = $request->get('idFom');
+        $fomope = DB::table('fomope')->where('id_movimiento', $fomopeId)->first();
+        $mytime = Carbon::now();
+        $mytime->setTimezone('GMT-6'); 
+        $user_Fecha =$mytime->toDateString()." - ". Auth::user()->usuario;
+
+        $update = DB::update(
+            'update fomope set color_estado = ?, usuario_name = ?, fechaEntregaArchivo = ?, fechaAutorizacion = ? where id_movimiento = ?',
+            ['guinda', Auth::user()->name, $mytime->toDateString(),$user_Fecha, $fomope->id_movimiento]
+        );
+
+        insertarHistorial($fomope->id_movimiento);
+               
+        
+        $mensaje = "el fomope fue actualizado";
+        return view('DDSCH.autorizaDDSCH', compact('mensaje'));
+    }
+    public function rechazoVerde2(Request $request){
+        $fomopeId = $request->get('idFom');
+        $fomope = DB::table('fomope')->where('id_movimiento', $fomopeId)->first();
+        $mytime = Carbon::now();
+        $mytime->setTimezone('GMT-6'); 
+        $user_Fecha =$mytime->toDateString()." - ". Auth::user()->usuario;
+        $motivoR = $request->get('comentarioR');
+        $newColorEstado = "gris";
+
+            $update = DB::update(
+                "update fomope set justificacionRechazo = ?, usuario_name=?,color_estado=? WHERE id_movimiento = ? ",
+                [$motivoR, Auth::user()->name, $newColorEstado,  $fomope->id_movimiento]
+            );
+        
+           
+        insertarHistorial($fomope->id_movimiento);
+        insertarRechazo($fomope->id_movimiento, $motivoR);
+
+        $mensaje = "El rechazo fue registrado";
+        return view('DDSCH.autorizaDDSCH', compact('mensaje'));
     }
 }
 

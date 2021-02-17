@@ -7,12 +7,13 @@
     <center>
         
 <div class="col-md-8 col-md-offset-8">
-               <form name="captura1" enctype="multipart/form-data" action="./Controller/guardarVerde.php" method="POST"> 
-                   <div class="form-row">
+               <form name="captura1" enctype="multipart/form-data" action="{{route('DDSCH.updateVerde')}}" method="POST"> 
+                   @csrf
+                <div class="form-row">
                       <input type="text" class="form-control" id="userName" name="userName" value="" style="display:none">
                   </div>
                   <div class="form-row">
-                      <input type="text" class="form-control" id="idFom" name="idFom" value="" style="display:none">
+                      <input type="text" class="form-control" id="idFom" name="idFom" value="{{$fomopeId}}" style="display:none">
                   </div>
 
                   
@@ -38,9 +39,8 @@
 
                       <div class="form-group">
                       <label for="archivo_1">Adjuntar un archivo (.pdf)</label>
-                      <!--  <input type="hidden" name="MAX_FILE_SIZE" value="30000" /> -->
                       <input type="file" name="nameArchivo" required>
-                     <!--  <p class="help-block">Ejemplo de texto de ayuda.</p> -->
+                
                     </div>
                   <br>
                   

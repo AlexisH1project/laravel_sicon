@@ -39,9 +39,8 @@ class DSPOController extends Controller
         return view('DSPO.generarReportePC');
     }
 
-    public function form_FOMOPE(Request $request)
+    public function form_FOMOPE($fomopeId)
     {
-        $fomopeId = $request->get('NFomope');
         $usuarios = DB::table('users')->get();
         $fechaSistema = DB::table('m1ct_fechasnomina')->where('estadoActual', 'abierta')->first();
         $Documentos = DB::table('m1ct_documentos')->get();
@@ -53,9 +52,8 @@ class DSPOController extends Controller
         return view('DSPO.form_FOMOPE', compact('fomope', 'usuarios', 'fechaSistema', 'anio', 'Documentos'));
     }
 
-    public function form_FOMOPEAnalista(Request $request)
+    public function form_FOMOPEAnalista($fomopeId)
     {
-        $fomopeId = $request->get('NFomope');
         $usuarios = DB::table('users')->get();
         $fechaSistema = DB::table('m1ct_fechasnomina')->where('estadoActual', 'abierta')->first();
         $Documentos = DB::table('m1ct_documentos')->get();
@@ -67,9 +65,8 @@ class DSPOController extends Controller
         return view('DSPO.form_FOMOPEAnalista', compact('fomope', 'usuarios', 'fechaSistema', 'anio', 'Documentos'));
     }
 
-    public function autorizarNomina(Request $request)
+    public function autorizarNomina($fomopeId)
     {
-        $fomopeId = $request->get('NFomope');
         $mytime = Carbon::now();
         $mytime->setTimezone('GMT-6');
         $fomope = DB::table('fomope')->where('id_movimiento', $fomopeId)->first();
@@ -92,9 +89,8 @@ class DSPOController extends Controller
        
     }
 
-    public function editarAnalista(Request $request)
+    public function editarAnalista($fomopeId)
     {
-        $fomopeId = $request->get('NFomope');
         $usuarios = DB::table('users')->get();
         $fechaSistema = DB::table('m1ct_fechasnomina')->where('estadoActual', 'abierta')->first();
         $Documentos = DB::table('m1ct_documentos')->get();
@@ -470,10 +466,11 @@ class DSPOController extends Controller
                         }
     }
 
-    public function autorizacionFomope(Request $request){
+    public function autorizacionFomope($fomope){
     
-        $fomopeAutorizarId = $request->get('fomope');
-        $fomopesS = DB::table('fomope')->select('*')->whereIn('id_movimiento', $fomopeAutorizarId)->get();
+        //$fomopeAutorizarId = $request->get('fomope');
+        $data = explode(",",$fomope);
+        $fomopesS = DB::table('fomope')->select('*')->whereIn('id_movimiento', $data)->get();
         $mytime = Carbon::now();
         $mytime->setTimezone('GMT-6'); 
         $user_Fecha =$mytime->toDateString()." - ". Auth::user()->usuario;
@@ -489,5 +486,7 @@ class DSPOController extends Controller
         } 
                       return view('DSPO.autorizaDSPO');
         }
+
+    
     }
 

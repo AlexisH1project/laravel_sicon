@@ -12,6 +12,7 @@
                             @csrf
                              <div class="container">
                                 <div class="form-signin" role="form">
+                                    <center>
                                     <h3 class="form-signin-heading">Ingrese los datos:</h3>
                                     <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Usuario" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                     @error('email')
@@ -47,10 +48,10 @@
                                 </button>
                               @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
+                                        {{ __('¿Olvidaste tu contraseña?') }}
                                     </a>
                                 @endif
-                       
+                                </center>
                             </div>
                             <div class="container" id="resultado">
     

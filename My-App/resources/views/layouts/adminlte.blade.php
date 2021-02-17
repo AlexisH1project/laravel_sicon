@@ -16,16 +16,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>SICON | @yield('title')</title>
   <!-- Tell the browser to be responsive to screen width -->
  
+  <link href="{{ asset('css/content_header.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/content_style.css') }}" rel="stylesheet">
+  <link href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('dist/css/adminlte.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!--CSS personalizadas de SICON-->
+  <!--CSS personalizadas de SICON
   <link rel="stylesheet" href="../css/content_header.css">
   <link rel="stylesheet" href="../css/content_style.css">
-  <!-- Font Awesome Icons -->
+   Font Awesome Icons 
   <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
+   Theme style 
   <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+ -->
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
   @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed sidebar-collapse ">
@@ -74,7 +81,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <aside class="main-sidebar sidebar-light-secondary elevation-4" >
   <!-- Brand Logo -->
   <a href="{{route('home')}}" class="brand-link">
-    <img src="../dist/img/salud.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+    
+    <img src="{{ asset('dist/img/salud.jpg') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
          style="opacity: .8">
     <span class="brand-text font-weight-light">SICON</span>
   </a>
@@ -84,7 +92,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="../dist/img/avatar_SS2.jpg" class="img-circle elevation-2" alt="User Image">
+        
+        <img src="{{ asset('dist/img/avatar_SS2.jpg') }}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
         <a href="{{route('home')}}" class="d-block">{{Auth::user()->name}}</a>
@@ -298,12 +307,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- REQUIRED SCRIPTS -->
 @yield('js')
+
+
 <!-- jQuery -->
-<script src="../plugins/jquery/jquery.min.js"></script>
+<script src="{{ asset('plugins/jquery/jquery.min.js') }}" defer> </script>
 <!-- Bootstrap 4 -->
-<script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}" defer> </script>
 <!-- AdminLTE App -->
-<script src="../dist/js/adminlte.min.js"></script>
+<script src="{{ asset('dist/js/adminlte.min.js') }}" defer> </script>
 
 
 

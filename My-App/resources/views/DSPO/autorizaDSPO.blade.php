@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="bgsand" style="background: #F2EBD7">
-    <form method="POST" action="{{route('DSPO.getFomopeTable')}}"> 
+    <form method="get" action="{{route('DSPO.getFomopeTable')}}"> 
         @csrf
         {{-- Este valor "redirect" debe de cambiar dependiendo de que usuario estas generando  --}}
         <input type='hidden' name='redirect' class='btn btn btn-success text-white bord' value='autorizaDSPO'>
@@ -98,11 +98,11 @@
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"amarillo")==0)
-    <button type="button" class="btn btn-outline-secondary" onclick="mandarFormFomope('{{$busqueda->id_movimiento}}')" id="" >Capturar</button>
+    <button type="button" class="btn btn-outline-secondary" onclick="mandarFormFomope({{$busqueda->id_movimiento}});" id="" >Capturar</button>
     @elseif(strcmp($busqueda->color_estado,"cafe")==0)
-    <button type="button" class="btn btn-outline-secondary" onclick="mandarFormFomopeAnalista()" id="" >Autorización</button>
+    <button type="button" class="btn btn-outline-secondary" onclick="mandarFormFomopeAnalista({{$busqueda->id_movimiento}});" id="" >Autorización</button>
     @elseif(strcmp($busqueda->color_estado,"negro1")==0)
-    <button type="button" class="btn btn-outline-secondary" onclick="mandarEditarAnalista()" id="" >Editar</button>
+    <button type="button" class="btn btn-outline-secondary" onclick="mandarEditarAnalista({{$busqueda->id_movimiento}});" id="" >Editar</button>
     @elseif(strcmp($busqueda->color_estado,"rosa")==0)
     <button type="button" class="btn btn-outline-secondary" data-toggle="modal"  data-target="#exampleModalN" >Nomina</button>
     @endif                               
@@ -143,10 +143,11 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'cafe')->g
 @foreach ($fomopeAutorizar as $busqueda)
 <tr>
   <td>
-    <form enctype="multipart/form-data" method="POST" action="{{route('DSPO.autorizacionFomope')}}" name="captura1" id="captura1"> 
+    <form  method="get" action="" name="captura1" id="captura1"> 
       @csrf
     <div class="custom-control custom-radio">
-      <label><input type="checkbox" value="{{$busqueda->id_movimiento}}" name="fomope[]"></label>
+      <label><input type="checkbox" value="{{$busqueda->id_movimiento}}" name="radios"></label>
+
     </div>
   </td>
   <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
@@ -157,11 +158,11 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'cafe')->g
 	<td>{{$busqueda->codigoMovimiento}}</td>
 	<td>{{$busqueda->fechaAutorizacion}}</td>
   <td>{{$busqueda->fechaCaptura}}</td>
-  <input type="text" class="form-control" id="NFomope" name="NFomope" value="{{$busqueda->id_movimiento}}" style="display:none">
+  
   <td>
    
     @if(strcmp($busqueda->color_estado,"cafe")==0)
-    <button type="button" class="btn btn-outline-secondary" onclick="mandarFormFomopeAnalista()" id="" >Autorización</button>
+    <input type="button" onclick="mandarFormFomopeAnalista({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Autorización" name="botonAccion">
     @endif                         
     </td>
 </tr>
@@ -169,7 +170,7 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'cafe')->g
       </tbody>
     </table>
   </div>
-  <button type="submit" name="" class="btn btn-outline-info tamanio-button">Autorizar</button> 
+  <input type="button" onclick="obtenerRadioSeleccionado('captura1','radios');" class="btn btn-outline-secondary" value="Autorizar" name="botonAccion">
 </form> 
 
 
@@ -208,7 +209,7 @@ $fomopeCapturar = DB::table('fomope')->where('color_estado', 'like', 'amarillo')
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"amarillo")==0)
-    <button type="button" class="btn btn-outline-secondary" onclick="mandarFormFomope('{{$busqueda->id_movimiento}}')" id="" >Capturar</button>                     
+    <button type="button" class="btn btn-outline-secondary" onclick="mandarFormFomope({{$busqueda->id_movimiento}});" id="" >Capturar</button>                     
   @endif  
   </td>
 </tr>
@@ -251,7 +252,7 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'negro1')->
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"negro1")==0)
-    <button type="button" class="btn btn-outline-secondary" onclick="mandarEditarAnalista('{{$busqueda->id_movimiento}}')" id="" >Editar</button>
+    <button type="button" class="btn btn-outline-secondary" onclick="mandarEditarAnalista({{$busqueda->id_movimiento}});" id="" >Editar</button>
     @endif                         
     </td>
 </tr>
@@ -303,45 +304,54 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'negro1')->
         </table>
       </div>
   <script type="text/javascript">
-    function mandarFormFomope(idmov){
+    function mandarFormFomope(idMov){
         		var formulario = document.captura1;
-                formulario.action= './form_FOMOPE';
-			    var a = $("#NFomope").val();
-          var b =idmov; 
-          console.log(b);
+              //  formulario.action= './form_FOMOPE';
+              formulario.action=  './form_FOMOPE/'.concat('', idMov);
 				      	formulario.submit();
 			}
-
-    
-    
-    function mandarFormFomopeAnalista(){
+    function mandarFormFomopeAnalista(idMov){
         		var formulario = document.captura1;
-        formulario.action= './form_FOMOPEAnalista';
-				    var a = $("#NFomope").val(); 
+      //  formulario.action= './form_FOMOPEAnalista';
+      formulario.action=  './form_FOMOPEAnalista/'.concat('', idMov);
+				   // var a = $("#NFomope").val(); 
 				      	formulario.submit();
 
 			}
-
-
-    
-    
-    function mandarEditarAnalista(){
+    function mandarEditarAnalista(idMov){
         		var formulario = document.captura1;
-        formulario.action= './editarAnalista';
-				    var a = $("#NFomope").val(); 
+      //  formulario.action= './editarAnalista';
+      formulario.action=  './editarAnalista/'.concat('', idMov);
+				 //   var a = $("#NFomope").val(); 
+				      	formulario.submit();
+			}
+    function mandarAutorizarNomina(idMov){
+        		var formulario = document.captura1;
+       // formulario.action= './autorizarNomina';
+        formulario.action=  './autorizarNomina/'.concat('', idMov);
+				 //   var a = $("#NFomope").val(); 
 				      	formulario.submit();
 
 			}
 
-    
-    
-    function mandarAutorizarNomina(){
-        		var formulario = document.captura1;
-        formulario.action= './autorizarNomina';
-				    var a = $("#NFomope").val(); 
-				      	formulario.submit();
+      function obtenerRadioSeleccionado(formulario, nombre){
+						var contador = 0;
+					     elementosSelectR = [];
+					     elementos = document.getElementById(formulario).elements;
+					     longitud = document.getElementById(formulario).length;
+					     for (var i = 0; i < longitud; i++){
+					         if(elementos[i].name == nombre && elementos[i].type == "checkbox" && elementos[i].checked == true){
+										elementosSelectR[contador]=elementos[i].value;
+										//alert(elementosSelectR[contador]);
+										contador++;
+					         }
+					     }
+					     if(contador > 0){
+							window.location.href = './'+elementosSelectR;
 
-			}
+					     }
+					     //return false;
+					} 
 
                          
 
@@ -357,7 +367,8 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'negro1')->
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form method="post">
+      <form method="get">
+        @csrf
       <div class="modal-body">
         ¿Quieres mandar a lotear el fomope?
       </div>
@@ -366,7 +377,7 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'negro1')->
     </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">NO, Regresar</button>
-         <input type="button" id="autorizarNsi" value="SI, Guardar Fecha actual" class="btn btn-primary" onclick="mandarAutorizarNomina()">
+         <input type="button" id="autorizarNsi" value="SI, Guardar Fecha actual" class="btn btn-primary" onclick="mandarAutorizarNomina('{{$busqueda->id_movimiento}}')">
       </div>
   </form>
     </div>

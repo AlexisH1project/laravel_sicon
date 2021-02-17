@@ -9,7 +9,8 @@
             <center>
                 
                     <div class="col-md-8 col-md-offset-8">
-                       <form name="captura1" enctype="multipart/form-data" action="./Controller/updateVerde.php" method="POST"> 
+                       <form name="captura1" enctype="multipart/form-data" action="{{route('DDSCH.updateVerde')}}" method="POST"> 
+                        @csrf 
                            <div class="form-row">
                           </div>
                           <div class="form-row">
@@ -19,7 +20,7 @@
   
                               <div class="form-group col-md-12 shadow-textarea">
                                 <label for="exampleFormControlTextarea6">Motivo de rechazo</label>
-                                <textarea class="form-control border border-dark z-depth-1" required readonly id="comentarioR" name="comentarioR" rows="3" placeholder="Escribe el motivo del rechazo...">{{$fomope->id_movimiento}}</textarea>
+                                <textarea class="form-control border border-dark z-depth-1" required readonly id="comentarioR" name="comentarioR" rows="3" placeholder="Escribe el motivo del rechazo...">{{$fomope->justificacionRechazo}}</textarea>
                               </div>
                           
                               <div class="form-row">
@@ -113,8 +114,8 @@
                       </form>  
                       <br>
                       <br>
-                      <form name="elimin" enctype="multipart/form-data" action="./Controller/eliminarFomope.php" method="POST"> 
-                          
+                      <form name="elimin" enctype="multipart/form-data" action="{{route('DDSCH.eliminarFomope')}}" method="POST"> 
+                        @csrf 
                       <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal1">
                                               Eliminar Fomope 
                                               </button>
