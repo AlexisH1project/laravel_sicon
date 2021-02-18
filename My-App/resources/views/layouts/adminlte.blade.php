@@ -4,7 +4,7 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 
-@if(!empty(Auth::user()->id_rol)){
+@if(!empty(Auth::user()->id_rol) OR Auth::user()->id_rol==0){
 
 @php
    updateQna(); //Esta funcion esta en myhelper.php se encarga de actualizar las quincenas

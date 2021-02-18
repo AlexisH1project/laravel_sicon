@@ -11,9 +11,9 @@
   </div>
 
 <div class="bgsand" style="background: #F2EBD7">
-    <form method="POST" action="{{route('getFomopeTable')}}"> 
+  <form method="POST" action="{{route('DDSCH.getFomopeTable')}}"> 
         @csrf
-        <input type='hidden' name='redirect' class='btn btn btn-success text-white bord' value='autorizaDDSCH'>
+        <input type='hidden' name='redirect' class='btn btn btn-success text-white bord' value='capDDSCH'>
         <div class="plantilla-inputv text-center">
             <div class="form-row">
                 <div class="col">
@@ -70,49 +70,50 @@
 </div>
 
 <div>
-@if(!empty($fomope))
-<br>
-<div class="card bg-secondary text-white">
-    <div class="card-body plantilla-inputg text-center"><h2>Busqueda</h2></div>
-    </div>
-<div class="card-body table-responsive p-0" style="height: 400px;">
-    <table class="table table-head-fixed table-bordered table-hover">
-      <thead class="thead-light">
-        <tr>
-            <th scope="titulo">Estado Fomope</th>
-            <th scope="titulo">Unidad</th>
-            <th scope="titulo">RFC</th>
-            <th scope="titulo">QNA</th>
-            <th scope="titulo">Fecha de Ingreso</th>
-            <th scope="titulo">Codigo Mov.</th>
-            <th scope="titulo">Fecha Autorización</th>
-            <th scope="titulo">Fecha de Captura</th>
-        </tr>
-      </thead>
-      <tbody>
-
-@foreach ($fomope as $busqueda)
-<tr>
-  <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
-	<td>{{$busqueda->unidad}}</td>
-	<td>{{$busqueda->rfc}}</td>
-	<td>{{$busqueda->quincenaAplicada}}</td>
-	<td>{{$busqueda->fechaIngreso}}</td>
-	<td>{{$busqueda->codigoMovimiento}}</td>
-	<td>{{$busqueda->fechaAutorizacion}}</td>
-  <td>{{$busqueda->fechaCaptura}}</td>
-  <td>
-	@if(strcmp($busqueda->color_estado,"negro")==0)
-            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
-  @elseif(strcmp($busqueda->color_estado,"verde2")==0)
-            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Ver</button>
-  @elseif(strcmp($busqueda->color_estado,"verde")==0)
-            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Capturar</button>
-  @elseif(strcmp($busqueda->color_estado,"gris")==0)
-            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
-  @elseif(strcmp($busqueda->color_estado,"amarillo0")==0)
-            <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Ver</button>	
-  @endif                         
+  @if(!empty($fomope))
+  <br>
+  <div class="card bg-secondary text-white">
+      <div class="card-body plantilla-inputg text-center"><h2>Busqueda</h2></div>
+      </div>
+  <div class="card-body table-responsive p-0" style="height: 400px;">
+      <table class="table table-head-fixed table-bordered table-hover">
+        <thead class="thead-light">
+          <tr>
+              <th scope="titulo">Estado Fomope</th>
+              <th scope="titulo">Unidad</th>
+              <th scope="titulo">RFC</th>
+              <th scope="titulo">QNA</th>
+              <th scope="titulo">Fecha de Ingreso</th>
+              <th scope="titulo">Codigo Mov.</th>
+              <th scope="titulo">Fecha Autorización</th>
+              <th scope="titulo">Fecha de Captura</th>
+          </tr>
+        </thead>
+        <tbody>
+  
+  @foreach ($fomope as $busqueda)
+  
+  <tr>
+    <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
+    <td>{{$busqueda->unidad}}</td>
+    <td>{{$busqueda->rfc}}</td>
+    <td>{{$busqueda->quincenaAplicada}}</td>
+    <td>{{$busqueda->fechaIngreso}}</td>
+    <td>{{$busqueda->codigoMovimiento}}</td>
+    <td>{{$busqueda->fechaAutorizacion}}</td>
+    <td>{{$busqueda->fechaCaptura}}</td>
+    <td>
+    @if(strcmp($busqueda->color_estado,"negro")==0)
+    <input type="button" onclick="negroEditar({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Editar" name="botonAccion">
+    @elseif(strcmp($busqueda->color_estado,"verde2")==0)
+    <input type="button" onclick="verVerde2({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Ver" name="botonAccion">
+    @elseif(strcmp($busqueda->color_estado,"verde")==0)
+    <input type="button" onclick="verVerde({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Capturar" name="botonAccion">
+    @elseif(strcmp($busqueda->color_estado,"gris")==0)
+    <input type="button" onclick="grisEditar({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Editar" name="botonAccion">
+    @elseif(strcmp($busqueda->color_estado,"amarillo0")==0)
+   
+    @endif                     
   </td>
 </tr>
 @endforeach    
@@ -124,47 +125,48 @@
 @endif
 
 <div class="card bg-secondary text-white">
-<div class="card-body plantilla-inputg text-center"><h2>Por Escanear</h2></div>
-</div>
-  @php                    
-$fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'verde')->get();	  				
-@endphp
-<div class="card-body table-responsive p-0" style="height: 400px;">
-    <table class="table table-head-fixed table-bordered table-hover">
-      <thead class="thead-light">
-        <tr>
-            <th scope="titulo">Estado Fomope</th>
-            <th scope="titulo">Unidad</th>
-            <th scope="titulo">RFC</th>
-            <th scope="titulo">QNA</th>
-            <th scope="titulo">Fecha de Ingreso</th>
-            <th scope="titulo">Codigo Mov.</th>
-            <th scope="titulo">Fecha Autorización</th>
-            <th scope="titulo">Fecha de Captura</th>
-        </tr>
-      </thead>
-      <tbody>
-
-@foreach ($fomopeEscanear as $busqueda)
-<tr>
-    <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
-	<td>{{$busqueda->unidad}}</td>
-	<td>{{$busqueda->rfc}}</td>
-	<td>{{$busqueda->quincenaAplicada}}</td>
-	<td>{{$busqueda->fechaIngreso}}</td>
-	<td>{{$busqueda->codigoMovimiento}}</td>
-	<td>{{$busqueda->fechaAutorizacion}}</td>
-  <td>{{$busqueda->fechaCaptura}}</td>
-  <td>
-    @if(strcmp($busqueda->color_estado,"verde")==0)
-              <button type="button" class="btn btn-outline-secondary" onclick="location.href='{{ route('DDSCH.verdeDDSCH') }}'" id="" >Capturar</button>
-    @endif                         
-    </td>
-</tr>
-@endforeach    
-      </tbody>
-    </table>
+  <div class="card-body plantilla-inputg text-center"><h2>Por Escanear</h2></div>
   </div>
+    @php                    
+  $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'verde')->get();	  				
+  @endphp
+  <div class="card-body table-responsive p-0" style="height: 400px;">
+      <table class="table table-head-fixed table-bordered table-hover">
+        <thead class="thead-light">
+          <tr>
+              <th scope="titulo">Estado Fomope</th>
+              <th scope="titulo">Unidad</th>
+              <th scope="titulo">RFC</th>
+              <th scope="titulo">QNA</th>
+              <th scope="titulo">Fecha de Ingreso</th>
+              <th scope="titulo">Codigo Mov.</th>
+              <th scope="titulo">Fecha Autorización</th>
+              <th scope="titulo">Fecha de Captura</th>
+          </tr>
+        </thead>
+        <tbody>
+  
+  @foreach ($fomopeEscanear as $busqueda)
+  <input id="NFomope" name="NFomope" type="hidden" value="{{$busqueda->id_movimiento}}">
+  <tr>
+      <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
+    <td>{{$busqueda->unidad}}</td>
+    <td>{{$busqueda->rfc}}</td>
+    <td>{{$busqueda->quincenaAplicada}}</td>
+    <td>{{$busqueda->fechaIngreso}}</td>
+    <td>{{$busqueda->codigoMovimiento}}</td>
+    <td>{{$busqueda->fechaAutorizacion}}</td>
+    <td>{{$busqueda->fechaCaptura}}</td>
+    <td>
+      @if(strcmp($busqueda->color_estado,"verde")==0)
+      <input type="button" onclick="verVerde({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Capturar" name="botonAccion">
+      @endif                         
+      </td>
+  </tr>
+  @endforeach    
+        </tbody>
+      </table>
+    </div>
 
   
 
@@ -172,7 +174,7 @@ $fomopeEscanear = DB::table('fomope')->where('color_estado', 'like', 'verde')->g
     <div class="card-body plantilla-inputg text-center"><h2>Editar</h2></div>
     </div>
   @php                    
-$fomopeEditar = DB::table('fomope')->where('color_estado', 'like', 'gris')->orWhere('color_estado', 'like', 'negro')->get();	  				
+$fomopeRechazados = DB::table('fomope')->where('color_estado', 'like', 'gris')->orWhere('color_estado', 'like', 'negro')->get();	  				
 @endphp
 
 <div class="card-body table-responsive p-0" style="height: 400px;">
@@ -191,7 +193,8 @@ $fomopeEditar = DB::table('fomope')->where('color_estado', 'like', 'gris')->orWh
       </thead>
       <tbody>
 
-@foreach ($fomopeEditar as $busqueda)
+@foreach ($fomopeRechazados as $busqueda)
+<input id="NFomope" name="NFomope" type="hidden" value="{{$busqueda->id_movimiento}}">
 <tr>
     <td>{{getEstadoFomope($busqueda->color_estado)}}</td>
 	<td>{{$busqueda->unidad}}</td>
@@ -203,11 +206,11 @@ $fomopeEditar = DB::table('fomope')->where('color_estado', 'like', 'gris')->orWh
   <td>{{$busqueda->fechaCaptura}}</td>
   <td>
     @if(strcmp($busqueda->color_estado,"gris")==0)
-              <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
+    <input type="button" onclick="grisEditar({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Editar" name="botonAccion">
     @elseif(strcmp($busqueda->color_estado,"negro")==0)
-              <button type="button" class="btn btn-outline-secondary" onclick="" id="" >Editar</button>
-    @endif                         
-    </td>
+    <input type="button" onclick="negroEditar({{$busqueda->id_movimiento}});" class="btn btn-outline-secondary" value="Editar" name="botonAccion">
+    @endif
+  </td>
 </tr>
 @endforeach    
       </tbody>
@@ -216,3 +219,45 @@ $fomopeEditar = DB::table('fomope')->where('color_estado', 'like', 'gris')->orWh
 
 
 @endsection
+
+<script type="text/javascript">
+  function verAmarillo0(idMov){
+    // var formulario = document.captura1;
+     window.location.href = './verAmarillo0/'+idMov;
+    // formulario.action=  './verAmarillo0/'.concat('', idMov);
+      //       formulario.submit();
+   }
+function verVerde(idMov){
+     //  var formulario = document.captura1;
+       window.location.href = './verVerde/'+idMov;
+       //    formulario.action=  './verVerde/'.concat('', idMov);
+   //  var a = $("#NFomope").val();
+
+         //  formulario.submit();
+ }
+function negroEditar(idMov){
+     //  var formulario = document.captura1;
+   window.location.href = './negroEditar/'+idMov;
+ }
+function grisEditar(idMov){
+     //  var formulario = document.captura1;
+   //formulario.action= './grisEditar';
+   window.location.href = './grisEditar/'+idMov;
+  // formulario.action=  './grisEditar/'.concat('', idMov);
+      // var a = $("#NFomope").val(); 
+         //  formulario.submit();
+
+ }
+
+
+
+function verVerde2(idMov){
+      // var formulario = document.captura1;
+   //formulario.action= './verVerde2';
+  // formulario.action=  './verVerde2/'.concat('', idMov);
+   window.location.href = './verVerde2/'+idMov;
+      // var a = $("#NFomope").val(); 
+    //       formulario.submit();
+
+ }
+</script>

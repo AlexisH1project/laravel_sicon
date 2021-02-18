@@ -155,7 +155,6 @@ $fomopeAutorizar = DB::table('fomope')->where('color_estado', 'like', 'amarillo0
 
     <div class="custom-control custom-radio">
       <label><input type="checkbox" value="{{$busqueda->id_movimiento}}" name="radios"></label>
-      <label><input type="checkbox" value="{{$busqueda->id_movimiento}}" name="fomope[]"></label>
     </div>
   </td>
   <td>{{getEstadoFomope($busqueda->color_estado)}}</td>

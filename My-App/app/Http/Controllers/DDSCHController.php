@@ -454,8 +454,10 @@ class DDSCHController extends Controller
                             return view('General.consultaEstado', compact('fomope'));
                         }elseif($ruta=="autorizaDSPO"){
                             return view('DSPO.autorizaDSPO', compact('fomope'));
-                        }elseif($ruta=="capDPO"){
+                        }elseif($ruta=="capDSPO"){
                             return view('DSPO.capDSPO', compact('fomope'));
+                        }elseif($ruta=="capDDSCH"){
+                            return view('DDSCH.capDDSCH', compact('fomope'));
                         }
     }
 
